@@ -61,34 +61,170 @@ body {
   animation: marquee 40s linear infinite;
 }
 
-/* Reveal on load */
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
+/* ─── Hero load animations — fire on first paint ─── */
+
+/* Mask-reveal: letters/lines slide up from behind a clip mask */
+.mask-wrap {
+  display: block;
+  overflow: hidden;
+}
+.mask-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  animation: maskUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes maskUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
+}
+
+/* Plain rise-up reveal (for body + form) */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes revealUp {
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.rise {
-  animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+/* Plain fade reveal */
+.reveal-fade {
+  opacity: 0;
+  animation: revealFade 1.2s ease-out forwards;
+}
+@keyframes revealFade {
+  to {
+    opacity: 1;
+  }
 }
 
-.rise-delay-1 {
-  animation-delay: 0.1s;
+/* Red horizontal sweep line — slices across the hero on load */
+.sweep-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: sweep 1.4s 0.15s cubic-bezier(0.77, 0, 0.18, 1) forwards;
 }
-.rise-delay-2 {
-  animation-delay: 0.25s;
+@keyframes sweep {
+  to {
+    transform: scaleX(1);
+  }
 }
-.rise-delay-3 {
-  animation-delay: 0.4s;
+
+/* Slow glow pulse — for the red background blur */
+.glow-pulse {
+  animation: glowPulse 7s ease-in-out infinite;
 }
-.rise-delay-4 {
-  animation-delay: 0.55s;
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.15);
+  }
 }
-.rise-delay-5 {
-  animation-delay: 0.7s;
+
+/* Blinking status dot — for the "live" indicator */
+.dot-blink {
+  animation: dotBlink 2s ease-in-out infinite;
+}
+@keyframes dotBlink {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 var(--color-rust);
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 0 6px rgba(200, 16, 46, 0);
+  }
+}
+
+/* Animated blueprint grid background */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: 0 0;
+  animation: gridDrift 80s linear infinite;
+  mask-image: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.9) 0%,
+    transparent 75%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.9) 0%,
+    transparent 75%
+  );
+}
+@keyframes gridDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 80px 80px;
+  }
+}
+
+/* Animated downward-traveling line inside the scroll cue */
+.scroll-line {
+  position: relative;
+  overflow: hidden;
+}
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -50%;
+  height: 50%;
+  background: var(--color-rust);
+  animation: scrollLineDown 2.4s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+@keyframes scrollLineDown {
+  0% {
+    top: -50%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mask-inner,
+  .reveal-up,
+  .reveal-fade,
+  .sweep-line,
+  .glow-pulse,
+  .dot-blink,
+  .hero-grid {
+    animation: none !important;
+  }
+  .mask-inner,
+  .reveal-up,
+  .reveal-fade {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .sweep-line {
+    transform: scaleX(1) !important;
+  }
+  .scroll-line::after {
+    display: none;
+  }
 }

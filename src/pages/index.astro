@@ -6,12 +6,15 @@ import ChainSvg from "../components/ChainSvg.astro";
 <BaseLayout current="home">
   <!-- ────────────────────────── HERO ────────────────────────── -->
   <section
-    class="relative flex min-h-screen flex-col justify-end overflow-hidden px-6 pt-32 pb-16 md:px-12 md:pt-40 md:pb-24"
+    class="relative flex min-h-screen flex-col justify-end overflow-hidden bg-ink px-6 pt-32 pb-16 md:px-12 md:pt-40 md:pb-24"
   >
-    <!-- Background glow -->
+    <!-- Drifting blueprint grid -->
+    <div class="hero-grid z-0"></div>
+
+    <!-- Background glow shapes -->
     <div class="pointer-events-none absolute inset-0 z-0">
       <div
-        class="absolute top-1/4 -right-32 h-[70vh] w-[70vh] bg-rust/15 blur-[120px]"
+        class="glow-pulse absolute top-1/4 -right-32 h-[70vh] w-[70vh] bg-rust/15 blur-[120px]"
       >
       </div>
       <div
@@ -26,35 +29,66 @@ import ChainSvg from "../components/ChainSvg.astro";
     >
     </div>
 
-    <div class="relative z-10 max-w-6xl">
-      <p
-        data-anim="rise"
-        class="mb-8 inline-flex items-center gap-3 font-mono text-xs tracking-[0.35em] text-rust uppercase"
-      >
-        <span class="inline-block h-px w-8 bg-rust"></span>
-        The first coworking space in Prilep
-      </p>
+    <!-- Live status badge -->
+    <div
+      class="absolute top-24 right-6 z-20 flex items-center gap-3 font-mono text-[10px] tracking-[0.35em] text-bone/70 uppercase reveal-fade md:top-28 md:right-12"
+      style="animation-delay: 1.5s;"
+    >
+      <span class="dot-blink inline-block h-2 w-2 rounded-full bg-rust"></span>
+      <span>Opening 2026</span>
+    </div>
 
+    <!-- Red horizontal sweep line -->
+    <div
+      class="sweep-line absolute top-[42%] right-0 left-0 z-0 h-px bg-rust/70"
+    >
+    </div>
+
+    <div class="relative z-10 max-w-6xl">
+      <!-- Eyebrow -->
+      <div class="mb-8">
+        <p
+          class="reveal-up inline-flex items-center gap-3 font-mono text-xs tracking-[0.35em] text-rust uppercase"
+          style="animation-delay: 0.6s;"
+        >
+          <span class="inline-block h-px w-8 bg-rust"></span>
+          The first coworking space in Prilep
+        </p>
+      </div>
+
+      <!-- Hero title with line-by-line mask reveal -->
       <h1
-        data-anim="rise"
         class="font-display text-[clamp(4.5rem,16vw,15rem)] leading-[0.82] tracking-tight uppercase"
       >
-        Coworking<br />
-        <span class="text-rust">Prilep</span>
+        <span class="mask-wrap">
+          <span class="mask-inner" style="animation-delay: 0.85s;">
+            Coworking
+          </span>
+        </span>
+        <span class="mask-wrap">
+          <span
+            class="mask-inner text-rust"
+            style="animation-delay: 1.05s;"
+          >
+            Prilep
+          </span>
+        </span>
       </h1>
 
+      <!-- Tagline -->
       <p
-        data-anim="rise"
-        class="mt-10 max-w-xl text-base leading-relaxed text-bone/75 md:text-lg"
+        class="reveal-up mt-10 max-w-xl text-base leading-relaxed text-bone/75 md:text-lg"
+        style="animation-delay: 1.5s;"
       >
         300m² across two floors. Dedicated desks, meeting rooms,
         community. Built for remote workers, freelancers, and small
         teams in Prilep, North Macedonia.
       </p>
 
+      <!-- Email capture -->
       <form
-        data-anim="rise"
-        class="mt-12 flex w-full max-w-md flex-col items-stretch border border-bone/25 transition-colors hover:border-bone/50 sm:flex-row"
+        class="reveal-up mt-12 flex w-full max-w-md flex-col items-stretch border border-bone/25 transition-colors hover:border-bone/50 sm:flex-row"
+        style="animation-delay: 1.7s;"
         method="POST"
         action="#"
       >
@@ -74,8 +108,8 @@ import ChainSvg from "../components/ChainSvg.astro";
       </form>
 
       <p
-        data-anim="rise"
-        class="mt-4 font-mono text-[10px] tracking-[0.3em] text-bone/40 uppercase"
+        class="reveal-up mt-4 font-mono text-[10px] tracking-[0.3em] text-bone/40 uppercase"
+        style="animation-delay: 1.9s;"
       >
         Be the first to know when we open
       </p>
@@ -83,12 +117,15 @@ import ChainSvg from "../components/ChainSvg.astro";
 
     <!-- Scroll cue -->
     <div
-      class="absolute right-6 bottom-6 z-10 hidden flex-col items-center gap-2 md:right-12 md:bottom-10 md:flex"
+      class="reveal-fade absolute right-6 bottom-6 z-10 hidden flex-col items-center gap-3 md:right-12 md:bottom-10 md:flex"
+      style="animation-delay: 2.1s;"
     >
-      <div class="font-mono text-[10px] tracking-[0.35em] text-bone/40 uppercase">
+      <div
+        class="font-mono text-[10px] tracking-[0.35em] text-bone/40 uppercase"
+      >
         Scroll
       </div>
-      <div class="h-12 w-px bg-gradient-to-b from-bone/40 to-transparent"></div>
+      <div class="scroll-line h-14 w-px bg-bone/10"></div>
     </div>
   </section>
 
