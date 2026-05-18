@@ -1,14 +1,30 @@
 ---
 import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ScrollAnimations from "../components/ScrollAnimations.astro";
 
 interface Props {
   title?: string;
   description?: string;
+  current?:
+    | "home"
+    | "about"
+    | "space"
+    | "amenities"
+    | "pricing"
+    | "faq"
+    | "contact";
+  hideHeader?: boolean;
+  hideFooter?: boolean;
 }
 
 const {
   title = "Coworking Prilep — Opening 2026",
   description = "The first coworking space in Prilep, North Macedonia. 300m² across two floors. Opening 2026.",
+  current = "home",
+  hideHeader = false,
+  hideFooter = false,
 } = Astro.props;
 ---
 
@@ -22,6 +38,7 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://coworkingprilep.mk" />
+    <meta name="theme-color" content="#000000" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,6 +49,9 @@ const {
     <title>{title}</title>
   </head>
   <body class="grain">
+    {!hideHeader && <Header current={current} />}
     <slot />
+    {!hideFooter && <Footer />}
+    <ScrollAnimations />
   </body>
 </html>

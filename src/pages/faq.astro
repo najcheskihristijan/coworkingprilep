@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const faqs = [
+  {
+    q: "When are you opening?",
+    a: "We're targeting opening in 2026. Subscribe to be notified when we lock the exact date.",
+  },
+  {
+    q: "Where is the space?",
+    a: "In Prilep, North Macedonia. The exact street address goes live once renovation finishes.",
+  },
+  {
+    q: "Can I tour the space?",
+    a: "Yes — once renovation is done. Email us through the contact page and we'll add you to the tour list.",
+  },
+  {
+    q: "Do you have parking?",
+    a: "Street parking around the building is open. We'll publish parking specifics closer to launch.",
+  },
+  {
+    q: "Is there 24/7 access?",
+    a: "24/7 access is planned for dedicated-desk members after launch. Hot-desk members will have standard opening hours.",
+  },
+  {
+    q: "Can I book a meeting room without a membership?",
+    a: "Yes. Meeting rooms will be bookable hourly for non-members at a higher rate.",
+  },
+  {
+    q: "Do you allow food delivery?",
+    a: "Yes — kitchen is open for use, food delivery is welcome.",
+  },
+  {
+    q: "Is there a free trial?",
+    a: "We're planning a 2-hour free trial so you can test the space before committing.",
+  },
+  {
+    q: "Do you host events?",
+    a: "Yes — talks, workshops, and after-work events for the community. Members get priority.",
+  },
+];
+---
+
+<BaseLayout
+  current="faq"
+  title="FAQ — Coworking Prilep"
+  description="Frequently asked questions about Coworking Prilep — opening, location, pricing, and how membership works."
+>
+  <PageHero eyebrow="FAQ" title="Questions, answered." />
+
+  <section class="px-6 py-16 md:px-12 md:py-24">
+    <div class="mx-auto max-w-4xl">
+      <div data-anim="rise-stagger" class="border-t border-bone/10">
+        {
+          faqs.map((item) => (
+            <details class="group border-b border-bone/10 py-6 transition-colors hover:bg-steel-900/40">
+              <summary class="flex cursor-pointer items-start justify-between gap-6 font-display text-xl uppercase md:text-2xl">
+                <span>{item.q}</span>
+                <span class="mt-1 font-mono text-rust transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p class="mt-4 text-bone/75">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-3xl text-center" data-anim="rise">
+      <div
+        class="mb-6 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+      >
+        Still curious?
+      </div>
+      <h2 class="font-display text-3xl uppercase md:text-5xl">
+        Ask us anything.
+      </h2>
+      <a
+        href="/contact"
+        class="mt-10 inline-block bg-rust px-10 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep"
+      >
+        Get in touch
+      </a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,114 @@
+---
+interface Props {
+  current?:
+    | "home"
+    | "about"
+    | "space"
+    | "amenities"
+    | "pricing"
+    | "faq"
+    | "contact";
+  variant?: "transparent" | "solid";
+}
+
+const { current = "home", variant = "transparent" } = Astro.props;
+
+const nav = [
+  { href: "/about", label: "About", key: "about" },
+  { href: "/space", label: "Space", key: "space" },
+  { href: "/amenities", label: "Amenities", key: "amenities" },
+  { href: "/pricing", label: "Pricing", key: "pricing" },
+  { href: "/faq", label: "FAQ", key: "faq" },
+  { href: "/contact", label: "Contact", key: "contact" },
+] as const;
+---
+
+<header
+  data-variant={variant}
+  class="fixed top-0 right-0 left-0 z-40 transition-all duration-500 data-[scrolled=true]:backdrop-blur-md data-[scrolled=true]:bg-ink/85 data-[scrolled=true]:border-b data-[scrolled=true]:border-bone/10"
+  id="site-header"
+>
+  <div
+    class="flex items-center justify-between px-6 py-5 md:px-12 md:py-6"
+  >
+    <a
+      href="/"
+      class="group flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-bone uppercase"
+      aria-label="Coworking Prilep — Home"
+    >
+      <span
+        class="inline-block h-2 w-2 rounded-full bg-rust transition-transform group-hover:scale-150"
+      ></span>
+      <span class="hidden sm:inline">Coworking</span>
+      <span class="text-rust">/</span>
+      <span>Prilep</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            data-current={current === item.key}
+            class="font-mono text-[11px] tracking-[0.3em] text-bone/60 uppercase transition-colors hover:text-bone data-[current=true]:text-rust"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <button
+      type="button"
+      id="menu-toggle"
+      class="md:hidden flex flex-col gap-[5px] p-2"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="block h-px w-6 bg-bone"></span>
+      <span class="block h-px w-6 bg-bone"></span>
+      <span class="block h-px w-4 bg-bone"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden bg-ink border-t border-bone/10 md:hidden"
+  >
+    <nav class="flex flex-col px-6 py-6" aria-label="Mobile">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            data-current={current === item.key}
+            class="py-3 font-mono text-sm tracking-[0.3em] text-bone/70 uppercase data-[current=true]:text-rust"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+
+  // Header solidifies on scroll
+  const header = document.getElementById("site-header");
+  const onScroll = () => {
+    if (!header) return;
+    header.dataset.scrolled = String(window.scrollY > 30);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

@@ -1,0 +1,142 @@
+---
+// Global scroll-driven animations powered by GSAP + ScrollTrigger.
+// Reads `data-anim` markers on elements and applies the right effect.
+//
+// Supported markers:
+//   data-anim="rise"          — fades up on entry
+//   data-anim="rise-stagger"  — staggered children rise (use on container)
+//   data-anim="count"         — count up to data-to (e.g., data-to="300")
+//   data-anim="reveal-chain"  — reveals a <ChainSvg /> via class flip
+//   data-anim="scrub-text"    — for pinned manifesto lines
+//
+// Respects prefers-reduced-motion.
+---
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function init() {
+    // 1. Rise on entry
+    document.querySelectorAll<HTMLElement>('[data-anim="rise"]').forEach((el) => {
+      if (prefersReducedMotion) {
+        gsap.set(el, { opacity: 1, y: 0 });
+        return;
+      }
+      gsap.from(el, {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    });
+
+    // 2. Rise stagger on children
+    document
+      .querySelectorAll<HTMLElement>('[data-anim="rise-stagger"]')
+      .forEach((container) => {
+        const children = Array.from(container.children) as HTMLElement[];
+        if (prefersReducedMotion) {
+          gsap.set(children, { opacity: 1, y: 0 });
+          return;
+        }
+        gsap.from(children, {
+          opacity: 0,
+          y: 30,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: container,
+            start: "top 80%",
+            once: true,
+          },
+        });
+      });
+
+    // 3. Count up
+    document
+      .querySelectorAll<HTMLElement>('[data-anim="count"]')
+      .forEach((el) => {
+        const to = parseFloat(el.dataset.to || "0");
+        const suffix = el.dataset.suffix || "";
+        if (prefersReducedMotion) {
+          el.textContent = to + suffix;
+          return;
+        }
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: to,
+          duration: 2,
+          ease: "power2.out",
+          scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          onUpdate: () => {
+            el.textContent = Math.round(obj.v) + suffix;
+          },
+        });
+      });
+
+    // 4. Reveal chain
+    document
+      .querySelectorAll<HTMLElement>('[data-anim="reveal-chain"]')
+      .forEach((el) => {
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 80%",
+          once: true,
+          onEnter: () => el.classList.add("is-revealed"),
+        });
+      });
+
+    // 5. Pinned manifesto — fade lines in sequence as user scrolls
+    document
+      .querySelectorAll<HTMLElement>('[data-anim="scrub-manifesto"]')
+      .forEach((container) => {
+        const lines = container.querySelectorAll<HTMLElement>(
+          "[data-manifesto-line]"
+        );
+        if (lines.length === 0) return;
+        if (prefersReducedMotion) {
+          gsap.set(lines, { opacity: 1 });
+          return;
+        }
+        gsap.set(lines, { opacity: 0.15 });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: container,
+            start: "top top",
+            end: () => "+=" + lines.length * 400,
+            scrub: 0.6,
+            pin: true,
+            anticipatePin: 1,
+          },
+        });
+        lines.forEach((line, i) => {
+          tl.to(line, { opacity: 1, duration: 1 }, i);
+          if (i < lines.length - 1) {
+            tl.to(line, { opacity: 0.15, duration: 1 }, i + 0.9);
+          }
+        });
+      });
+
+    // Refresh after fonts load
+    document.fonts?.ready.then(() => ScrollTrigger.refresh());
+  }
+
+  if (document.readyState === "complete") {
+    init();
+  } else {
+    window.addEventListener("load", init, { once: true });
+  }
+</script>

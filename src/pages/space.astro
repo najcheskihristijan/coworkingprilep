@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<BaseLayout
+  current="space"
+  title="The Space — Coworking Prilep"
+  description="300m² across two floors. Open coworking, dedicated desks, meeting rooms, kitchen, backyard."
+>
+  <PageHero
+    eyebrow="The space"
+    title="300m². Two floors. Built for focus."
+    subtitle="Ground floor for the open coworking floor, lounge, kitchen, and backyard. Upper floor for dedicated desks, meeting rooms, and quiet focus."
+  />
+
+  <!-- Floor breakdown -->
+  <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto grid max-w-6xl gap-16 md:grid-cols-2">
+      <div data-anim="rise">
+        <div
+          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+        >
+          Ground floor — ~200m²
+        </div>
+        <h2 class="font-display text-3xl uppercase md:text-4xl">
+          Open. Social. Always on.
+        </h2>
+        <ul class="mt-8 space-y-3 text-bone/75">
+          <li class="flex gap-3"><span class="text-rust">●</span> Open coworking floor</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> Reception + lounge</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> Dedicated kitchen</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> Two restrooms</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> Backyard (~30m²)</li>
+        </ul>
+      </div>
+      <div data-anim="rise">
+        <div
+          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+        >
+          Upper floor — ~100m²
+        </div>
+        <h2 class="font-display text-3xl uppercase md:text-4xl">
+          Quiet. Dedicated. Yours.
+        </h2>
+        <ul class="mt-8 space-y-3 text-bone/75">
+          <li class="flex gap-3"><span class="text-rust">●</span> Dedicated desk zone</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> One meeting room</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> Flex / overflow room</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> One restroom</li>
+          <li class="flex gap-3"><span class="text-rust">●</span> Quiet-focus rules</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Design -->
+  <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-6xl">
+      <div data-anim="rise" class="mb-16 max-w-2xl">
+        <div
+          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+        >
+          Design
+        </div>
+        <h2 class="font-display text-4xl uppercase md:text-5xl">
+          Industrial. Modern. Local.
+        </h2>
+        <p class="mt-6 text-bone/75">
+          Black, white, red and gray. Exposed materials. Hard lines.
+          A chain motif on glass and along the stairs. Designed to
+          feel grounded, serious, and a little raw — the way good
+          work feels.
+        </p>
+      </div>
+      <div data-anim="rise-stagger" class="grid gap-px bg-bone/10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          ["Black", "White", "Red", "Gray"].map((c) => (
+            <div class="bg-ink p-8">
+              <div class="font-display text-3xl uppercase">{c}</div>
+              <div class="mt-2 font-mono text-[10px] tracking-[0.3em] text-bone/45 uppercase">
+                Palette
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Placeholder for photos -->
+  <section class="px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-4xl text-center" data-anim="rise">
+      <div
+        class="mb-6 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+      >
+        Photos coming
+      </div>
+      <h2 class="font-display text-3xl uppercase md:text-5xl">
+        We'll show you the space<br />when it's ready.
+      </h2>
+      <p class="mx-auto mt-8 max-w-xl text-bone/70">
+        Renovation starts May 2026. We'll add real photos here as
+        the space comes together — no stock images, no renders, just
+        the real thing.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

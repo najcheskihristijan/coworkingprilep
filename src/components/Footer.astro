@@ -1,0 +1,64 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-bone/10 bg-ink">
+  <div
+    class="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-4 md:px-12 md:py-24"
+  >
+    <div class="md:col-span-2">
+      <div class="font-display text-5xl leading-[0.9] uppercase md:text-6xl">
+        Coworking<br />
+        <span class="text-rust">Prilep</span>
+      </div>
+      <p class="mt-6 max-w-md text-bone/60">
+        The first coworking space in Prilep, North Macedonia. Built
+        for remote workers, freelancers, and small teams. Opening 2026.
+      </p>
+    </div>
+
+    <div>
+      <div
+        class="mb-5 font-mono text-[10px] tracking-[0.35em] text-bone/40 uppercase"
+      >
+        Site
+      </div>
+      <ul class="space-y-3 text-sm text-bone/75">
+        <li><a class="hover:text-rust transition-colors" href="/about">About</a></li>
+        <li><a class="hover:text-rust transition-colors" href="/space">Space</a></li>
+        <li><a class="hover:text-rust transition-colors" href="/amenities">Amenities</a></li>
+        <li><a class="hover:text-rust transition-colors" href="/pricing">Pricing</a></li>
+        <li><a class="hover:text-rust transition-colors" href="/faq">FAQ</a></li>
+        <li><a class="hover:text-rust transition-colors" href="/contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div
+        class="mb-5 font-mono text-[10px] tracking-[0.35em] text-bone/40 uppercase"
+      >
+        Contact
+      </div>
+      <ul class="space-y-3 text-sm text-bone/75">
+        <li>
+          <a
+            class="hover:text-rust transition-colors"
+            href="mailto:coworkingprilep@outlook.com"
+          >
+            coworkingprilep@outlook.com
+          </a>
+        </li>
+        <li>Prilep, North Macedonia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-bone/10">
+    <div
+      class="mx-auto flex max-w-7xl flex-col justify-between gap-3 px-6 py-6 font-mono text-[10px] tracking-[0.3em] text-bone/40 uppercase md:flex-row md:px-12"
+    >
+      <div>© {year} Coworking Prilep</div>
+      <div>Built in Prilep <span class="text-rust">●</span> Opening 2026</div>
+    </div>
+  </div>
+</footer>

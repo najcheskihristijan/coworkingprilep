@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const plans = [
+  {
+    name: "Day pass",
+    price: "TBA",
+    period: "/ day",
+    blurb: "Try a single day. Hot desk, all amenities.",
+    perks: ["Hot desk", "Wi-Fi", "Coffee + kitchen", "Backyard access"],
+    cta: "Notify me",
+  },
+  {
+    name: "Hot desk",
+    price: "TBA",
+    period: "/ month",
+    blurb: "Drop in any day, pick any open desk.",
+    perks: [
+      "Any free desk, any day",
+      "Wi-Fi, coffee, kitchen",
+      "2× meeting-room hours / mo",
+      "Events access",
+    ],
+    cta: "Notify me",
+    featured: false,
+  },
+  {
+    name: "Dedicated desk",
+    price: "TBA",
+    period: "/ month",
+    blurb: "Your own desk. Locked. Always ready.",
+    perks: [
+      "Your own dedicated desk",
+      "Wi-Fi, coffee, kitchen",
+      "10× meeting-room hours / mo",
+      "Locker included",
+      "24/7 access (planned)",
+    ],
+    cta: "Notify me",
+    featured: true,
+  },
+  {
+    name: "Team room",
+    price: "TBA",
+    period: "/ month",
+    blurb: "Private space for 3–6 people.",
+    perks: [
+      "Private team room",
+      "Everything in Dedicated",
+      "Branded door signage",
+      "Priority meeting-room booking",
+    ],
+    cta: "Talk to us",
+  },
+];
+---
+
+<BaseLayout
+  current="pricing"
+  title="Pricing — Coworking Prilep"
+  description="Plans for day visitors, freelancers, and small teams. Final pricing locks before launch."
+>
+  <PageHero
+    eyebrow="Pricing"
+    title="Plans for every kind of worker."
+    subtitle="Final prices will be confirmed before we open. Subscribe and you'll be the first to see them — with an early-bird discount."
+  />
+
+  <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-6xl">
+      <div
+        data-anim="rise-stagger"
+        class="grid gap-px bg-bone/10 md:grid-cols-2 lg:grid-cols-4"
+      >
+        {
+          plans.map((plan) => (
+            <div
+              class:list={[
+                "flex flex-col bg-ink p-8",
+                plan.featured && "lg:bg-steel-900",
+              ]}
+            >
+              {plan.featured && (
+                <div class="mb-3 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+                  Most popular
+                </div>
+              )}
+              <div class="font-display text-3xl uppercase">{plan.name}</div>
+              <div class="mt-4 flex items-baseline gap-1">
+                <span class="font-display text-5xl text-rust">{plan.price}</span>
+                <span class="font-mono text-xs text-bone/40">{plan.period}</span>
+              </div>
+              <p class="mt-4 text-sm text-bone/60">{plan.blurb}</p>
+              <ul class="mt-6 space-y-2 text-sm text-bone/75">
+                {plan.perks.map((perk) => (
+                  <li class="flex gap-3">
+                    <span class="text-rust">●</span> {perk}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/contact"
+                class="mt-8 block border border-bone/25 py-3 text-center font-mono text-[11px] tracking-[0.25em] text-bone uppercase transition-colors hover:border-rust hover:text-rust"
+              >
+                {plan.cta}
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-3xl text-center" data-anim="rise">
+      <div
+        class="mb-6 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+      >
+        Early-bird discount
+      </div>
+      <h2 class="font-display text-3xl uppercase md:text-5xl">
+        Subscribe now,<br />pay less at launch.
+      </h2>
+      <p class="mx-auto mt-8 max-w-xl text-bone/70">
+        Early subscribers get an introductory rate on the first three
+        months — locked in when we open the doors.
+      </p>
+      <a
+        href="/#notify"
+        class="mt-10 inline-block bg-rust px-10 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep"
+      >
+        Notify me
+      </a>
+    </div>
+  </section>
+</BaseLayout>

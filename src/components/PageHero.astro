@@ -1,0 +1,60 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  number?: string;
+}
+
+const { eyebrow, title, subtitle, number } = Astro.props;
+---
+
+<section
+  class="relative overflow-hidden border-b border-bone/10 px-6 pt-40 pb-20 md:px-12 md:pt-48 md:pb-28"
+>
+  <div class="pointer-events-none absolute inset-0 z-0">
+    <div
+      class="absolute -top-32 -right-32 h-[50vh] w-[50vh] bg-rust/10 blur-[120px]"
+    >
+    </div>
+  </div>
+  <div class="relative z-10 mx-auto max-w-6xl">
+    {
+      number && (
+        <div
+          data-anim="rise"
+          class="mb-6 font-mono text-[10px] tracking-[0.35em] text-bone/35 uppercase"
+        >
+          {number}
+        </div>
+      )
+    }
+    {
+      eyebrow && (
+        <div
+          data-anim="rise"
+          class="mb-4 inline-flex items-center gap-3 font-mono text-xs tracking-[0.35em] text-rust uppercase"
+        >
+          <span class="inline-block h-px w-8 bg-rust" />
+          {eyebrow}
+        </div>
+      )
+    }
+    <h1
+      data-anim="rise"
+      class="font-display text-[clamp(3rem,10vw,9rem)] leading-[0.88] tracking-tight uppercase"
+    >
+      {title}
+    </h1>
+    {
+      subtitle && (
+        <p
+          data-anim="rise"
+          class="mt-8 max-w-2xl text-base leading-relaxed text-bone/75 md:text-lg"
+        >
+          {subtitle}
+        </p>
+      )
+    }
+  </div>
+</section>
