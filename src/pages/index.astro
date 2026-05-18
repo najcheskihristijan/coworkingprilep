@@ -1,0 +1,234 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <main class="relative min-h-screen overflow-hidden bg-ink text-bone">
+    <!-- Top bar -->
+    <header
+      class="absolute top-0 right-0 left-0 z-20 flex items-center justify-between px-6 py-5 md:px-12 md:py-7"
+    >
+      <div class="font-mono text-[10px] tracking-[0.3em] text-bone/60 uppercase md:text-xs">
+        Coworking <span class="text-rust">/</span> Prilep, MK
+      </div>
+      <div class="font-mono text-[10px] tracking-[0.3em] text-bone/60 uppercase md:text-xs">
+        Est. 2026
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section
+      class="relative flex min-h-screen flex-col justify-end px-6 pt-32 pb-16 md:px-12 md:pt-40 md:pb-24"
+    >
+      <!-- Background glow shapes -->
+      <div class="pointer-events-none absolute inset-0 z-0">
+        <div
+          class="absolute top-1/4 -right-32 h-[70vh] w-[70vh] bg-rust/15 blur-[120px]"
+        >
+        </div>
+        <div
+          class="absolute bottom-0 -left-32 h-[60vh] w-[60vh] bg-bone/5 blur-[120px]"
+        >
+        </div>
+      </div>
+
+      <!-- Vertical rail (industrial accent) -->
+      <div
+        class="absolute top-0 bottom-0 left-6 z-10 hidden w-px bg-gradient-to-b from-transparent via-bone/15 to-transparent md:block md:left-12"
+      >
+      </div>
+
+      <div class="relative z-10 max-w-6xl">
+        <p
+          class="rise mb-8 inline-flex items-center gap-3 font-mono text-xs tracking-[0.35em] text-rust uppercase"
+        >
+          <span class="inline-block h-px w-8 bg-rust"></span>
+          The first coworking space in Prilep
+        </p>
+
+        <h1
+          class="rise rise-delay-1 font-display text-[clamp(4.5rem,16vw,15rem)] leading-[0.82] tracking-tight uppercase"
+        >
+          Coworking<br />
+          <span class="text-rust">Prilep</span>
+        </h1>
+
+        <p
+          class="rise rise-delay-2 mt-10 max-w-xl text-base leading-relaxed text-bone/75 md:text-lg"
+        >
+          300m² across two floors. Dedicated desks, meeting rooms,
+          community. Built for remote workers, freelancers, and small
+          teams in Prilep, North Macedonia.
+        </p>
+
+        <!-- Email capture -->
+        <form
+          class="rise rise-delay-3 mt-12 flex w-full max-w-md flex-col items-stretch border border-bone/25 transition-colors hover:border-bone/50 sm:flex-row"
+          method="POST"
+          action="#"
+        >
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="your@email.com"
+            class="flex-1 bg-transparent px-5 py-4 text-sm text-bone placeholder-bone/35 focus:outline-none"
+          />
+          <button
+            type="submit"
+            class="bg-rust px-6 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep"
+          >
+            Notify me
+          </button>
+        </form>
+
+        <p
+          class="rise rise-delay-4 mt-4 font-mono text-[10px] tracking-[0.3em] text-bone/40 uppercase"
+        >
+          Be the first to know when we open
+        </p>
+      </div>
+    </section>
+
+    <!-- Marquee strip -->
+    <section
+      class="overflow-hidden border-y border-bone/10 bg-ink whitespace-nowrap"
+    >
+      <div
+        class="animate-marquee flex items-center py-6 font-mono text-xs tracking-[0.35em] text-bone/45 uppercase"
+      >
+        {
+          Array.from({ length: 2 }).map(() => (
+            <>
+              <span class="mx-10">Coworking Prilep</span>
+              <span class="mx-10 text-rust">●</span>
+              <span class="mx-10">300m²</span>
+              <span class="mx-10 text-rust">●</span>
+              <span class="mx-10">Two floors</span>
+              <span class="mx-10 text-rust">●</span>
+              <span class="mx-10">Opening 2026</span>
+              <span class="mx-10 text-rust">●</span>
+              <span class="mx-10">Prilep — North Macedonia</span>
+              <span class="mx-10 text-rust">●</span>
+              <span class="mx-10">Industrial. Modern. Local.</span>
+              <span class="mx-10 text-rust">●</span>
+            </>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- What it is -->
+    <section
+      class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32"
+    >
+      <div class="mx-auto grid max-w-6xl gap-12 md:grid-cols-3">
+        <div class="md:col-span-1">
+          <div
+            class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+          >
+            01 — The space
+          </div>
+          <h2
+            class="font-display text-4xl leading-[0.95] uppercase md:text-5xl"
+          >
+            Built for the<br />way you work.
+          </h2>
+        </div>
+        <div class="md:col-span-2">
+          <p class="text-lg leading-relaxed text-bone/75">
+            Two floors. Twenty dedicated desks. Meeting rooms,
+            a quiet upper level, a backyard, a kitchen, fast
+            internet, strong coffee. Whether you're a remote employee,
+            a freelancer, or a small team, we built this for you —
+            with the people of Prilep in mind.
+          </p>
+          <div class="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 md:grid-cols-4">
+            <div>
+              <div
+                class="font-display text-4xl text-rust md:text-5xl"
+              >
+                300
+              </div>
+              <div
+                class="mt-1 font-mono text-[10px] tracking-[0.3em] text-bone/50 uppercase"
+              >
+                m² total
+              </div>
+            </div>
+            <div>
+              <div
+                class="font-display text-4xl text-rust md:text-5xl"
+              >
+                20
+              </div>
+              <div
+                class="mt-1 font-mono text-[10px] tracking-[0.3em] text-bone/50 uppercase"
+              >
+                Desks
+              </div>
+            </div>
+            <div>
+              <div
+                class="font-display text-4xl text-rust md:text-5xl"
+              >
+                2
+              </div>
+              <div
+                class="mt-1 font-mono text-[10px] tracking-[0.3em] text-bone/50 uppercase"
+              >
+                Floors
+              </div>
+            </div>
+            <div>
+              <div
+                class="font-display text-4xl text-rust md:text-5xl"
+              >
+                1st
+              </div>
+              <div
+                class="mt-1 font-mono text-[10px] tracking-[0.3em] text-bone/50 uppercase"
+              >
+                In Prilep
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-6 py-16 md:px-12 md:py-20">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:items-end md:justify-between"
+      >
+        <div>
+          <div
+            class="mb-3 font-mono text-[10px] tracking-[0.35em] text-bone/40 uppercase"
+          >
+            Where
+          </div>
+          <div class="text-lg">Prilep, North Macedonia</div>
+        </div>
+        <div>
+          <div
+            class="mb-3 font-mono text-[10px] tracking-[0.35em] text-bone/40 uppercase"
+          >
+            Contact
+          </div>
+          <a
+            href="mailto:coworkingprilep@outlook.com"
+            class="text-lg transition-colors hover:text-rust"
+          >
+            coworkingprilep@outlook.com
+          </a>
+        </div>
+        <div
+          class="font-mono text-[10px] tracking-[0.35em] text-bone/30 uppercase"
+        >
+          © 2026 Coworking Prilep
+        </div>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>
