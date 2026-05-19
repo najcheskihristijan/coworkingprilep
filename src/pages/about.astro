@@ -44,6 +44,41 @@ import PageHero from "../components/PageHero.astro";
     </div>
   </section>
 
+  <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-6xl">
+      <div data-anim="rise" class="mb-16 max-w-2xl">
+        <div
+          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+        >
+          What we believe
+        </div>
+        <h2 class="font-display text-3xl leading-[0.95] uppercase md:text-5xl">
+          How we built it.
+        </h2>
+      </div>
+      <div
+        data-anim="rise-stagger"
+        class="grid gap-px bg-bone/10 sm:grid-cols-2"
+      >
+        {
+          [
+            ["Local.", "Built in Prilep, for Prilep. By people from here."],
+            ["Modern.", "Designed, not improvised. Industrial, not corporate."],
+            ["Focused.", "Quiet upper floor. Real desks. Rules that protect silence."],
+            ["Honest.", "Fair pricing. No stock photos. No promises we can't keep."],
+          ].map(([title, body]) => (
+            <div class="bg-ink p-10">
+              <div class="font-display text-3xl text-rust uppercase md:text-4xl">
+                {title}
+              </div>
+              <div class="mt-4 text-bone/70">{body}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <section class="px-6 py-24 md:px-12 md:py-32">
     <div class="mx-auto max-w-4xl text-center" data-anim="rise">
       <div
