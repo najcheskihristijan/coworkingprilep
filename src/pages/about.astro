@@ -10,8 +10,8 @@ import PageHero from "../components/PageHero.astro";
 >
   <PageHero
     eyebrow="About"
-    title="Three partners. One Prilep."
-    subtitle="Coworking Prilep is the first coworking space in Prilep, North Macedonia. We're three founders who saw a missing piece in the city and decided to build it ourselves."
+    title="Built for Prilep."
+    subtitle="Coworking Prilep is the first coworking space in Prilep, North Macedonia. We saw a missing piece in the city and decided to build it."
   />
 
   <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
@@ -30,53 +30,16 @@ import PageHero from "../components/PageHero.astro";
         <p>
           Cafés get loud. Home gets lonely. Renting a private office
           for a single freelancer doesn't make sense. There was no
-          third place — a serious, designed, dedicated workspace
+          third place, a serious, designed, dedicated workspace
           for people who do their best work outside of a corporate
           office.
         </p>
         <p>
           So we built one. Two floors, 300 square meters, in the
           heart of Prilep. Designed for the people we knew were
-          looking for it — remote workers, freelancers, founders,
+          looking for it, remote workers, freelancers, founders,
           small teams.
         </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
-    <div class="mx-auto max-w-6xl">
-      <div data-anim="rise" class="mb-16">
-        <div
-          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
-        >
-          The founders
-        </div>
-        <h2 class="font-display text-3xl leading-[0.95] uppercase md:text-5xl">
-          Three equal partners.
-        </h2>
-      </div>
-      <div
-        data-anim="rise-stagger"
-        class="grid gap-px bg-bone/10 sm:grid-cols-3"
-      >
-        {
-          [
-            ["Filip Mircheski", "CEO", "Legal signing authority. Operations lead."],
-            ["Filip Georgievski", "Operations", "Security, internet, booking software, coffee."],
-            ["Hristijan Najcheski", "Brand & Tech", "Brand identity, web, member experience."],
-          ].map(([name, role, blurb]) => (
-            <div class="bg-ink p-10">
-              <div class="font-display text-2xl uppercase">{name}</div>
-              <div class="mt-2 font-mono text-[10px] tracking-[0.3em] text-rust uppercase">
-                {role}
-              </div>
-              <div class="mt-6 text-sm leading-relaxed text-bone/60">
-                {blurb}
-              </div>
-            </div>
-          ))
-        }
       </div>
     </div>
   </section>
