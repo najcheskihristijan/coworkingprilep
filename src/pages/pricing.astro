@@ -2,54 +2,116 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 
-const plans = [
+const memberships = [
   {
     name: "Day pass",
     price: "TBA",
     period: "/ day",
     blurb: "Try a single day. Hot desk, all amenities.",
-    perks: ["Hot desk", "Wi-Fi", "Coffee + kitchen", "Backyard access"],
-    cta: "Notify me",
-  },
-  {
-    name: "Hot desk",
-    price: "TBA",
-    period: "/ month",
-    blurb: "Drop in any day, pick any open desk.",
     perks: [
-      "Any free desk, any day",
-      "Wi-Fi, coffee, kitchen",
-      "2× meeting-room hours / mo",
-      "Events access",
+      "Hot desk for the day",
+      "Wi-Fi + coffee + kitchen",
+      "Backyard access",
+      "No commitment",
     ],
     cta: "Notify me",
-    featured: false,
   },
   {
-    name: "Dedicated desk",
+    name: "Hot Desk 8",
+    price: "TBA",
+    period: "/ month",
+    blurb: "Eight visits a month. Pick any open desk.",
+    perks: [
+      "8 days / month",
+      "Any open desk",
+      "Wi-Fi, coffee, kitchen",
+      "2× meeting-room hours / mo",
+    ],
+    cta: "Notify me",
+  },
+  {
+    name: "Hot Desk Unlimited",
+    price: "TBA",
+    period: "/ month",
+    blurb: "Drop in any day we're open.",
+    perks: [
+      "Unlimited visits",
+      "Any open desk",
+      "Wi-Fi, coffee, kitchen",
+      "4× meeting-room hours / mo",
+    ],
+    cta: "Notify me",
+    note: "Limited spots",
+  },
+  {
+    name: "Dedicated Desk",
     price: "TBA",
     period: "/ month",
     blurb: "Your own desk. Locked. Always ready.",
     perks: [
       "Your own dedicated desk",
+      "Locker included",
       "Wi-Fi, coffee, kitchen",
       "10× meeting-room hours / mo",
-      "Locker included",
-      "24/7 access (planned)",
     ],
     cta: "Notify me",
     featured: true,
   },
+];
+
+const commitments = [
   {
-    name: "Team room",
+    name: "Dedicated Annual",
     price: "TBA",
-    period: "/ month",
-    blurb: "Private space for 3–6 people.",
+    period: "/ year",
+    blurb: "Pay upfront, save the equivalent of two months. Price locked for the year.",
     perks: [
-      "Private team room",
-      "Everything in Dedicated",
-      "Branded door signage",
-      "Priority meeting-room booking",
+      "12 months dedicated desk",
+      "Save vs monthly",
+      "Price locked for the term",
+      "All Dedicated Desk perks",
+    ],
+    cta: "Notify me",
+  },
+  {
+    name: "Team — per seat",
+    price: "TBA",
+    period: "/ seat / month",
+    blurb: "Bring your team. Per-seat pricing, no separate room needed.",
+    perks: [
+      "Minimum 3 seats",
+      "Per-seat invoicing",
+      "Sit together (subject to availability)",
+      "Custom onboarding for the team",
+    ],
+    cta: "Talk to us",
+  },
+];
+
+const addons = [
+  {
+    name: "Meeting room — hourly",
+    price: "TBA",
+    period: "/ hour",
+    blurb: "Book the meeting room by the hour. Open to non-members too.",
+    perks: [
+      "For 2–6 people",
+      "Whiteboard & screen",
+      "Available during open hours",
+      "Members get included hours",
+    ],
+    cta: "Notify me",
+  },
+  {
+    name: "Event rental",
+    price: "TBA",
+    period: "/ evening",
+    blurb: "Rent the space for a talk, workshop, or after-work event.",
+    perks: [
+      "Evenings & weekends",
+      "Up to ~30 guests",
+      "Setup & teardown included",
+      "Catering on request",
     ],
     cta: "Talk to us",
   },
@@ -59,7 +121,7 @@ const plans = [
 <BaseLayout
   current="pricing"
   title="Pricing — Coworking Prilep"
-  description="Plans for day visitors, freelancers, and small teams. Final pricing locks before launch."
+  description="Memberships for day visitors, freelancers, and small teams, plus a lifetime-locked Founders' Beta for the first 20 dedicated members."
 >
   <PageHero
     eyebrow="Pricing"
@@ -67,14 +129,98 @@ const plans = [
     subtitle="Final prices will be confirmed before we open. Subscribe and you'll be the first to see them. With an early-bird discount."
   />
 
+  <!-- ────────── Founders' Beta — featured offer ────────── -->
+  <section class="border-b border-bone/10 px-6 py-20 md:px-12 md:py-24">
+    <div class="mx-auto max-w-6xl">
+      <div
+        data-anim="rise"
+        class="relative overflow-hidden border border-rust/40 bg-gradient-to-br from-rust/15 via-ink to-ink p-10 md:p-16"
+      >
+        <div
+          class="pointer-events-none absolute -top-20 -right-20 h-72 w-72 rounded-full bg-rust/25 blur-[100px]"
+        >
+        </div>
+        <div
+          class="pointer-events-none absolute -bottom-24 -left-24 h-60 w-60 rounded-full bg-rust/15 blur-[80px]"
+        >
+        </div>
+
+        <div class="relative grid gap-10 md:grid-cols-3 md:gap-12">
+          <div class="md:col-span-2">
+            <div
+              class="mb-3 inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+            >
+              <span class="dot-blink inline-block h-2 w-2 rounded-full bg-rust"></span>
+              Limited · 20 spots only
+            </div>
+            <h2
+              class="font-display text-4xl leading-[0.95] uppercase md:text-6xl"
+            >
+              Founders' Beta.
+            </h2>
+            <p class="mt-6 max-w-xl text-bone/80 md:text-lg">
+              Lock in early-bird pricing for life. Available to the
+              first 20 dedicated members only. Pay upfront, save big,
+              and help shape the space before we open the doors.
+            </p>
+            <ul class="mt-8 space-y-2.5 text-sm text-bone/85">
+              <li class="flex gap-3">
+                <span class="text-rust">●</span> Lifetime locked price
+              </li>
+              <li class="flex gap-3">
+                <span class="text-rust">●</span> Dedicated desk from day one
+              </li>
+              <li class="flex gap-3">
+                <span class="text-rust">●</span> Founder badge & priority access
+              </li>
+              <li class="flex gap-3">
+                <span class="text-rust">●</span> Direct input on amenities,
+                events, hours
+              </li>
+            </ul>
+          </div>
+          <div class="flex flex-col items-start justify-between md:items-end">
+            <div class="md:text-right">
+              <div class="font-display text-6xl text-rust md:text-7xl">
+                TBA
+              </div>
+              <div
+                class="mt-1 font-mono text-[10px] tracking-[0.3em] text-bone/50 uppercase"
+              >
+                / month, locked for life
+              </div>
+            </div>
+            <a
+              href="/contact"
+              class="mt-10 inline-block bg-rust px-8 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep"
+            >
+              Claim a spot
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── Memberships grid ────────── -->
   <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
     <div class="mx-auto max-w-6xl">
+      <div data-anim="rise" class="mb-12 max-w-2xl">
+        <div
+          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+        >
+          Memberships
+        </div>
+        <h2 class="font-display text-4xl leading-[0.95] uppercase md:text-5xl">
+          Monthly plans.
+        </h2>
+      </div>
       <div
         data-anim="rise-stagger"
         class="grid gap-px bg-bone/10 md:grid-cols-2 lg:grid-cols-4"
       >
         {
-          plans.map((plan) => (
+          memberships.map((plan) => (
             <div
               class:list={[
                 "flex flex-col bg-ink p-8",
@@ -86,10 +232,21 @@ const plans = [
                   Most popular
                 </div>
               )}
-              <div class="font-display text-3xl uppercase">{plan.name}</div>
+              {plan.note && !plan.featured && (
+                <div class="mb-3 font-mono text-[10px] tracking-[0.35em] text-bone/45 uppercase">
+                  {plan.note}
+                </div>
+              )}
+              <div class="font-display text-2xl uppercase md:text-3xl">
+                {plan.name}
+              </div>
               <div class="mt-4 flex items-baseline gap-1">
-                <span class="font-display text-5xl text-rust">{plan.price}</span>
-                <span class="font-mono text-xs text-bone/40">{plan.period}</span>
+                <span class="font-display text-5xl text-rust">
+                  {plan.price}
+                </span>
+                <span class="font-mono text-xs text-bone/40">
+                  {plan.period}
+                </span>
               </div>
               <p class="mt-4 text-sm text-bone/60">{plan.blurb}</p>
               <ul class="mt-6 space-y-2 text-sm text-bone/75">
@@ -112,25 +269,131 @@ const plans = [
     </div>
   </section>
 
+  <!-- ────────── Annual + Team ────────── -->
+  <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-6xl">
+      <div data-anim="rise" class="mb-12 max-w-2xl">
+        <div
+          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+        >
+          Commit, save more
+        </div>
+        <h2 class="font-display text-4xl leading-[0.95] uppercase md:text-5xl">
+          Annual & team.
+        </h2>
+      </div>
+      <div
+        data-anim="rise-stagger"
+        class="grid gap-px bg-bone/10 md:grid-cols-2"
+      >
+        {
+          commitments.map((plan) => (
+            <div class="flex flex-col bg-ink p-10">
+              <div class="font-display text-2xl uppercase md:text-3xl">
+                {plan.name}
+              </div>
+              <div class="mt-4 flex items-baseline gap-1">
+                <span class="font-display text-5xl text-rust">
+                  {plan.price}
+                </span>
+                <span class="font-mono text-xs text-bone/40">
+                  {plan.period}
+                </span>
+              </div>
+              <p class="mt-4 max-w-md text-sm text-bone/60">{plan.blurb}</p>
+              <ul class="mt-6 space-y-2 text-sm text-bone/75">
+                {plan.perks.map((perk) => (
+                  <li class="flex gap-3">
+                    <span class="text-rust">●</span> {perk}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/contact"
+                class="mt-8 self-start border border-bone/25 px-6 py-3 font-mono text-[11px] tracking-[0.25em] text-bone uppercase transition-colors hover:border-rust hover:text-rust"
+              >
+                {plan.cta}
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── Pay as you go ────────── -->
+  <section class="border-b border-bone/10 px-6 py-24 md:px-12 md:py-32">
+    <div class="mx-auto max-w-6xl">
+      <div data-anim="rise" class="mb-12 max-w-2xl">
+        <div
+          class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
+        >
+          Pay as you go
+        </div>
+        <h2 class="font-display text-4xl leading-[0.95] uppercase md:text-5xl">
+          Hourly & events.
+        </h2>
+      </div>
+      <div
+        data-anim="rise-stagger"
+        class="grid gap-px bg-bone/10 md:grid-cols-2"
+      >
+        {
+          addons.map((plan) => (
+            <div class="flex flex-col bg-ink p-10">
+              <div class="font-display text-2xl uppercase md:text-3xl">
+                {plan.name}
+              </div>
+              <div class="mt-4 flex items-baseline gap-1">
+                <span class="font-display text-5xl text-rust">
+                  {plan.price}
+                </span>
+                <span class="font-mono text-xs text-bone/40">
+                  {plan.period}
+                </span>
+              </div>
+              <p class="mt-4 max-w-md text-sm text-bone/60">{plan.blurb}</p>
+              <ul class="mt-6 space-y-2 text-sm text-bone/75">
+                {plan.perks.map((perk) => (
+                  <li class="flex gap-3">
+                    <span class="text-rust">●</span> {perk}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/contact"
+                class="mt-8 self-start border border-bone/25 px-6 py-3 font-mono text-[11px] tracking-[0.25em] text-bone uppercase transition-colors hover:border-rust hover:text-rust"
+              >
+                {plan.cta}
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────── Final CTA ────────── -->
   <section class="px-6 py-24 md:px-12 md:py-32">
     <div class="mx-auto max-w-3xl text-center" data-anim="rise">
       <div
         class="mb-6 font-mono text-[10px] tracking-[0.35em] text-rust uppercase"
       >
-        Early-bird discount
+        Still deciding?
       </div>
       <h2 class="font-display text-3xl uppercase md:text-5xl">
-        Subscribe now,<br />pay less at launch.
+        Talk to us<br />before we open.
       </h2>
       <p class="mx-auto mt-8 max-w-xl text-bone/70">
-        Early subscribers get an introductory rate on the first three
-        months — locked in when we open the doors.
+        Tell us how you work. We'll match you with the right plan,
+        answer questions, and let you know when we're ready for your
+        first visit.
       </p>
       <a
-        href="/#notify"
+        href="/contact"
         class="mt-10 inline-block bg-rust px-10 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep"
       >
-        Notify me
+        Get in touch
       </a>
     </div>
   </section>
