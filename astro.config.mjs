@@ -7,12 +7,12 @@ export default defineConfig({
   site: "https://coworkingprilep.mk",
   integrations: [react()],
   redirects: {
-    "/about": "/",
-    "/space": "/",
-    "/amenities": "/",
-    "/pricing": "/",
-    "/faq": "/",
-    "/contact": "/",
+    "/about": "/coming-soon",
+    "/space": "/coming-soon",
+    "/amenities": "/coming-soon",
+    "/pricing": "/coming-soon",
+    "/faq": "/coming-soon",
+    "/contact": "/coming-soon",
   },
   vite: {
     plugins: [tailwindcss()],
