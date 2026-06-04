@@ -57,6 +57,23 @@ const shouldNoIndex = noindex || isDraft;
       <meta name="robots" content="noindex, nofollow" />
     )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {!isDraft && (
+      <>
+        <script
+          async
+          is:inline
+          src="https://www.googletagmanager.com/gtag/js?id=G-YDCX2P736Y"
+        ></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag("js", new Date());
+          gtag("config", "G-YDCX2P736Y");
+        </script>
+      </>
+    )}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
