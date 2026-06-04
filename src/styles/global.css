@@ -228,3 +228,92 @@ body {
     display: none;
   }
 }
+
+/* ── Blog post content styling (markdown render target) ──────── */
+.prose-cws {
+  color: rgb(255 255 255 / 0.75);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose-cws > * + * { margin-top: 1.5rem; }
+.prose-cws p { color: rgb(255 255 255 / 0.75); }
+.prose-cws h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-bone);
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
+}
+.prose-cws h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  margin-top: 2.5rem;
+  margin-bottom: 0.25rem;
+}
+.prose-cws h4 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-rust);
+  font-weight: 500;
+  margin-top: 2rem;
+}
+.prose-cws strong { color: var(--color-bone); font-weight: 700; }
+.prose-cws em { color: rgb(255 255 255 / 0.55); font-style: italic; }
+.prose-cws a {
+  color: var(--color-rust);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-rust);
+  transition: opacity 0.15s ease;
+}
+.prose-cws a:hover { opacity: 0.7; }
+.prose-cws ul, .prose-cws ol { padding-left: 1.25rem; }
+.prose-cws ul { list-style: none; padding-left: 0; }
+.prose-cws ul > li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.prose-cws ul > li::before {
+  content: "●";
+  color: var(--color-rust);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.7em;
+  line-height: 1.75rem;
+}
+.prose-cws ol > li::marker { color: var(--color-rust); font-family: var(--font-mono); }
+.prose-cws blockquote {
+  border-left: 3px solid var(--color-rust);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: rgb(255 255 255 / 0.6);
+}
+.prose-cws code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-steel-900);
+  color: var(--color-rust);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0;
+}
+.prose-cws pre {
+  background: var(--color-steel-900);
+  border-left: 3px solid var(--color-rust);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+.prose-cws pre code {
+  background: transparent;
+  color: var(--color-bone);
+  padding: 0;
+}
+.prose-cws img { max-width: 100%; height: auto; border: 1px solid rgb(255 255 255 / 0.1); }
+.prose-cws hr { border: 0; height: 1px; background: rgb(255 255 255 / 0.1); margin: 3rem 0; }

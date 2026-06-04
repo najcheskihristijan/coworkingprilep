@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const pages = [
+  { href: "/draft/about", title: "About", desc: "The why behind the space." },
+  { href: "/draft/space", title: "The space", desc: "300m² floor breakdown, layout, palette." },
+  { href: "/draft/amenities", title: "Amenities", desc: "Everything that comes with a membership." },
+  { href: "/draft/pricing", title: "Pricing", desc: "All plans — prices marked TBA until partners sign off." },
+  { href: "/draft/faq", title: "FAQ", desc: "Common questions, plain answers." },
+  { href: "/draft/contact", title: "Contact", desc: "Email + form. Not wired to a backend yet." },
+];
+
+const liveOnly = [
+  { href: "/", title: "Home", desc: "Pre-launch landing — live." },
+  { href: "/coming-soon", title: "Coming soon", desc: "Where public footer + nav links land." },
+  { href: "/blog", title: "Blog", desc: "Public from day one. Add posts under src/content/blog/." },
+];
+---
+
+<BaseLayout
+  current="home"
+  title="Draft pages — Coworking Prilep"
+  description="Owner-only preview of all unfinished pages."
+  noindex={true}
+>
+  <section class="px-6 pt-32 pb-16 md:px-12 md:pt-40 md:pb-24">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        Owner preview
+      </div>
+      <h1 class="font-display text-5xl leading-[0.95] uppercase md:text-7xl">
+        Draft pages.
+      </h1>
+      <p class="mt-6 max-w-xl text-bone/70">
+        These pages are built but not yet live. Public visitors who try to
+        reach them (via footer links or direct URL) are redirected to the
+        coming-soon page. You can preview them here.
+      </p>
+
+      <div class="mt-12 mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        Draft &mdash; not public
+      </div>
+      <div class="grid gap-px bg-bone/10 sm:grid-cols-2">
+        {pages.map((p) => (
+          <a
+            href={p.href}
+            class="group bg-ink p-6 transition-colors hover:bg-steel-900"
+          >
+            <div class="font-display text-2xl uppercase">{p.title}</div>
+            <div class="mt-2 text-sm text-bone/60">{p.desc}</div>
+            <div class="mt-3 font-mono text-[10px] tracking-[0.3em] text-rust uppercase">
+              {p.href} &rarr;
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-12 mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        Currently live
+      </div>
+      <div class="grid gap-px bg-bone/10 sm:grid-cols-3">
+        {liveOnly.map((p) => (
+          <a
+            href={p.href}
+            class="group bg-ink p-6 transition-colors hover:bg-steel-900"
+          >
+            <div class="font-display text-xl uppercase">{p.title}</div>
+            <div class="mt-2 text-sm text-bone/60">{p.desc}</div>
+            <div class="mt-3 font-mono text-[10px] tracking-[0.3em] text-rust uppercase">
+              {p.href} &rarr;
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-16 border-t border-bone/10 pt-8 font-mono text-[10px] tracking-[0.3em] text-bone/40 uppercase">
+        URL: <span class="text-rust">/draft</span> &middot; Bookmark this.
+        Pages are <span class="text-bone">noindex,nofollow</span> so Google won&rsquo;t crawl them.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

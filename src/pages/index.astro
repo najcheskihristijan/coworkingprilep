@@ -373,12 +373,13 @@ import ChainSvg from "../components/ChainSvg.astro";
   </section>
 
   <script>
-    // Pre-launch email capture → Supabase `subscribers` table.
-    // RLS allows anon INSERT only; the publishable key is safe to ship client-side.
+    // Pre-launch email capture → Supabase Edge Function `subscribe`.
+    // The function inserts into the `subscribers` table AND sends a thank-you
+    // email via Resend. Keeping the Resend API key server-side.
     const SUPABASE_URL = "https://iikrjwnwejliupiwrnpy.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_ARIm4r9R-t0YCn-W91A6yw_qRuMm1Ra";
-    const SUBSCRIBE_ENDPOINT = `${SUPABASE_URL}/rest/v1/subscribers`;
+    const SUBSCRIBE_ENDPOINT = `${SUPABASE_URL}/functions/v1/subscribe`;
 
     document
       .querySelectorAll<HTMLFormElement>("[data-prelaunch-form]")
@@ -408,26 +409,24 @@ import ChainSvg from "../components/ChainSvg.astro";
             const res = await fetch(SUBSCRIBE_ENDPOINT, {
               method: "POST",
               headers: {
-                apikey: SUPABASE_PUBLISHABLE_KEY,
                 Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
                 "Content-Type": "application/json",
-                Prefer: "return=minimal",
               },
               body: JSON.stringify({ email, source: "website" }),
             });
 
-            if (res.ok) {
-              showMessage(
-                "You&rsquo;re on the list. We&rsquo;ll be in touch.",
-              );
-            } else if (res.status === 409) {
-              // Duplicate email — unique constraint
+            const data = await res.json().catch(() => ({}));
+
+            if (res.ok && data.duplicate) {
               showMessage(
                 "You&rsquo;re already on the list. We&rsquo;ll be in touch.",
               );
+            } else if (res.ok) {
+              showMessage(
+                "You&rsquo;re on the list. Check your inbox for a welcome note.",
+              );
             } else {
-              const detail = await res.text().catch(() => "");
-              console.error("[subscribe]", res.status, detail);
+              console.error("[subscribe]", res.status, data);
               button.disabled = false;
               button.textContent = originalText;
               alert("Something went wrong. Please try again.");

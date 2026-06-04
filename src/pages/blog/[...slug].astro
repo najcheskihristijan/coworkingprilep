@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatter = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+
+<BaseLayout
+  current="blog"
+  title={`${post.data.title} — Coworking Prilep`}
+  description={post.data.description}
+>
+  <article class="px-6 pt-32 pb-16 md:px-12 md:pt-40 md:pb-24">
+    <div class="mx-auto max-w-3xl">
+      <a
+        href="/blog"
+        class="mb-12 inline-block font-mono text-[10px] tracking-[0.3em] text-bone/40 uppercase transition-colors hover:text-rust"
+      >
+        &larr; Back to blog
+      </a>
+
+      <div class="font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        {formatter.format(post.data.publishDate)}
+        {post.data.tags.length > 0 && (
+          <span class="text-bone/40"> &middot; {post.data.tags.join(", ")}</span>
+        )}
+      </div>
+
+      <h1 class="mt-4 font-display text-4xl leading-[0.95] uppercase md:text-6xl">
+        {post.data.title}
+      </h1>
+
+      <p class="mt-6 text-lg text-bone/70 leading-relaxed">
+        {post.data.description}
+      </p>
+    </div>
+  </article>
+
+  <article class="px-6 pb-24 md:px-12 md:pb-32">
+    <div class="prose-cws mx-auto max-w-3xl">
+      <Content />
+    </div>
+  </article>
+
+  <section class="border-t border-bone/10 px-6 py-16 md:px-12 md:py-24">
+    <div class="mx-auto max-w-2xl text-center">
+      <div class="mb-6 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        Not on the list yet?
+      </div>
+      <h2 class="font-display text-3xl uppercase md:text-5xl">
+        Get the next one.
+      </h2>
+      <p class="mt-6 text-bone/70">
+        Subscribe and we&rsquo;ll send you progress updates as we build
+        Coworking Prilep, plus the email when we open.
+      </p>
+      <a
+        href="/#subscribe"
+        class="mt-10 inline-block bg-rust px-10 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep"
+      >
+        Join the list
+      </a>
+    </div>
+  </section>
+</BaseLayout>

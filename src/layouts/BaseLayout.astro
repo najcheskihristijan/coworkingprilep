@@ -14,9 +14,12 @@ interface Props {
     | "amenities"
     | "pricing"
     | "faq"
-    | "contact";
+    | "contact"
+    | "blog";
   hideHeader?: boolean;
   hideFooter?: boolean;
+  noindex?: boolean;
+  prelaunch?: boolean;
 }
 
 const {
@@ -25,7 +28,13 @@ const {
   current = "home",
   hideHeader = false,
   hideFooter = false,
+  noindex = false,
+  prelaunch = true,
 } = Astro.props;
+
+// Auto-noindex any /draft/* page so search engines never crawl unfinished content.
+const isDraft = Astro.url.pathname.startsWith("/draft");
+const shouldNoIndex = noindex || isDraft;
 ---
 
 <!doctype html>
@@ -44,6 +53,9 @@ const {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://coworkingprilep.mk/og-image.png" />
     <meta name="theme-color" content="#000000" />
+    {shouldNoIndex && (
+      <meta name="robots" content="noindex, nofollow" />
+    )}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -54,7 +66,13 @@ const {
     <title>{title}</title>
   </head>
   <body class="grain">
-    {!hideHeader && <Header current={current} />}
+    {!hideHeader && <Header current={current} prelaunch={prelaunch && !isDraft} />}
+    {isDraft && (
+      <div class="bg-rust text-bone font-mono text-[10px] tracking-[0.3em] uppercase text-center py-2 px-4">
+        Draft preview &middot; not indexed &middot;
+        <a href="/draft" class="underline ml-2">All drafts</a>
+      </div>
+    )}
     <slot />
     {!hideFooter && <Footer />}
     <ScrollAnimations />
