@@ -1,0 +1,111 @@
+---
+// Cookie consent banner with Google Consent Mode v2.
+// Default = analytics_storage denied (set in BaseLayout before gtag loads).
+// On accept → consent updated, choice stored in localStorage.
+// On decline → choice stored; gtag stays denied (still emits cookieless pings).
+// Banner never re-shows once a choice exists.
+---
+
+<div
+  id="consent-banner"
+  class="pointer-events-none fixed inset-x-0 bottom-0 z-50 translate-y-full opacity-0 transition-all duration-500 ease-out"
+  aria-live="polite"
+  aria-label="Cookie consent"
+  hidden
+>
+  <div class="border-t border-bone/15 bg-ink/95 backdrop-blur-md pointer-events-auto">
+    <div
+      class="mx-auto flex max-w-6xl flex-col gap-5 px-6 py-5 md:flex-row md:items-center md:justify-between md:gap-10 md:px-12 md:py-6"
+    >
+      <div class="max-w-2xl text-sm leading-relaxed text-bone/75">
+        <span
+          class="mr-3 inline-block font-mono text-[10px] font-bold tracking-[0.3em] text-rust uppercase"
+        >
+          Cookies
+        </span>
+        We use cookies for basic analytics &mdash; how many people land on the
+        page and how they got here. No ads. No tracking outside this site.
+        <a href="/coming-soon" class="text-rust hover:opacity-70">Privacy</a>.
+      </div>
+      <div class="flex shrink-0 gap-3">
+        <button
+          type="button"
+          data-consent="denied"
+          class="border border-bone/30 px-5 py-3 font-mono text-[10px] font-bold tracking-[0.25em] text-bone/85 uppercase transition-colors hover:border-bone hover:text-bone"
+        >
+          Decline
+        </button>
+        <button
+          type="button"
+          data-consent="granted"
+          class="bg-rust px-5 py-3 font-mono text-[10px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = "cws_consent_v1";
+    var banner = document.getElementById("consent-banner");
+    if (!banner) return;
+
+    function applyConsent(state) {
+      if (typeof window.gtag !== "function") return;
+      window.gtag("consent", "update", {
+        analytics_storage: state,
+        ad_storage: state,
+        ad_user_data: state,
+        ad_personalization: state,
+      });
+    }
+
+    function hideBanner() {
+      banner.classList.add("translate-y-full", "opacity-0");
+      banner.classList.remove("translate-y-0", "opacity-100");
+      window.setTimeout(function () {
+        banner.setAttribute("hidden", "");
+      }, 500);
+    }
+
+    function showBanner() {
+      banner.removeAttribute("hidden");
+      window.requestAnimationFrame(function () {
+        banner.classList.remove("translate-y-full", "opacity-0");
+        banner.classList.add("translate-y-0", "opacity-100");
+      });
+    }
+
+    var stored = null;
+    try {
+      stored = localStorage.getItem(STORAGE_KEY);
+    } catch (_e) {
+      // Private mode / disabled storage — proceed without persisting.
+    }
+
+    if (stored === "granted" || stored === "denied") {
+      applyConsent(stored);
+      return;
+    }
+
+    // No prior choice → show the banner.
+    showBanner();
+
+    banner.querySelectorAll("[data-consent]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var choice = button.getAttribute("data-consent");
+        if (choice !== "granted" && choice !== "denied") return;
+        try {
+          localStorage.setItem(STORAGE_KEY, choice);
+        } catch (_e) {
+          /* swallow */
+        }
+        applyConsent(choice);
+        hideBanner();
+      });
+    });
+  })();
+</script>

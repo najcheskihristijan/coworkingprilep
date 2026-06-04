@@ -422,6 +422,17 @@ import ChainSvg from "../components/ChainSvg.astro";
                 "You&rsquo;re already on the list. We&rsquo;ll be in touch.",
               );
             } else if (res.ok) {
+              // GA conversion event — only fires when consent is granted.
+              const w = window as any;
+              if (typeof w.gtag === "function") {
+                w.gtag("event", "subscribe", {
+                  source: "website_prelaunch",
+                });
+                // GA4's recommended lead event, for the "Conversions" report.
+                w.gtag("event", "generate_lead", {
+                  method: "website_prelaunch",
+                });
+              }
               showMessage(
                 "You&rsquo;re on the list. Check your inbox for a welcome note.",
               );

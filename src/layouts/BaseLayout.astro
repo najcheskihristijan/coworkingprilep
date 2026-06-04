@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ScrollAnimations from "../components/ScrollAnimations.astro";
+import ConsentBanner from "../components/ConsentBanner.astro";
 
 interface Props {
   title?: string;
@@ -66,9 +67,18 @@ const shouldNoIndex = noindex || isDraft;
         ></script>
         <script is:inline>
           window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
+          window.gtag = function () {
+            window.dataLayer.push(arguments);
+          };
+          // Consent Mode v2 — default everything to denied until the user accepts.
+          // GA4 still emits cookieless pings, so aggregate pageview counts survive.
+          gtag("consent", "default", {
+            analytics_storage: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied",
+            wait_for_update: 500,
+          });
           gtag("js", new Date());
           gtag("config", "G-YDCX2P736Y");
         </script>
@@ -92,6 +102,7 @@ const shouldNoIndex = noindex || isDraft;
     )}
     <slot />
     {!hideFooter && <Footer />}
+    {!isDraft && <ConsentBanner />}
     <ScrollAnimations />
   </body>
 </html>
