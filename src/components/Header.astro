@@ -9,9 +9,14 @@ interface Props {
     | "faq"
     | "contact";
   variant?: "transparent" | "solid";
+  prelaunch?: boolean;
 }
 
-const { current = "home", variant = "transparent" } = Astro.props;
+const {
+  current = "home",
+  variant = "transparent",
+  prelaunch = true,
+} = Astro.props;
 
 const nav = [
   { href: "/about", label: "About", key: "about" },
@@ -36,17 +41,21 @@ const nav = [
       class="group flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-bone uppercase"
       aria-label="Coworking Prilep — Home"
     >
-      <span
-        class="inline-block h-2 w-2 rounded-full bg-rust transition-transform group-hover:scale-150"
-      ></span>
+      <img
+        src="/cws-badge.svg"
+        alt=""
+        width="28"
+        height="28"
+        class="block h-7 w-7 shrink-0 transition-transform group-hover:scale-110"
+      />
       <span class="hidden sm:inline">Coworking</span>
       <span class="text-rust">/</span>
       <span>Prilep</span>
     </a>
 
-    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
-      {
-        nav.map((item) => (
+    {!prelaunch && (
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+        {nav.map((item) => (
           <a
             href={item.href}
             data-current={current === item.key}
@@ -54,32 +63,42 @@ const nav = [
           >
             {item.label}
           </a>
-        ))
-      }
-    </nav>
+        ))}
+      </nav>
+    )}
 
-    <button
-      type="button"
-      id="menu-toggle"
-      class="md:hidden flex flex-col gap-[5px] p-2"
-      aria-label="Open menu"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-    >
-      <span class="block h-px w-6 bg-bone"></span>
-      <span class="block h-px w-6 bg-bone"></span>
-      <span class="block h-px w-4 bg-bone"></span>
-    </button>
+    {prelaunch && (
+      <a
+        href="#subscribe"
+        class="font-mono text-[11px] tracking-[0.3em] text-bone/70 uppercase transition-colors hover:text-rust"
+      >
+        Join the list
+      </a>
+    )}
+
+    {!prelaunch && (
+      <button
+        type="button"
+        id="menu-toggle"
+        class="md:hidden flex flex-col gap-[5px] p-2"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="block h-px w-6 bg-bone"></span>
+        <span class="block h-px w-6 bg-bone"></span>
+        <span class="block h-px w-4 bg-bone"></span>
+      </button>
+    )}
   </div>
 
-  <!-- Mobile menu -->
-  <div
-    id="mobile-menu"
-    class="hidden bg-ink border-t border-bone/10 md:hidden"
-  >
-    <nav class="flex flex-col px-6 py-6" aria-label="Mobile">
-      {
-        nav.map((item) => (
+  {!prelaunch && (
+    <div
+      id="mobile-menu"
+      class="hidden bg-ink border-t border-bone/10 md:hidden"
+    >
+      <nav class="flex flex-col px-6 py-6" aria-label="Mobile">
+        {nav.map((item) => (
           <a
             href={item.href}
             data-current={current === item.key}
@@ -87,10 +106,10 @@ const nav = [
           >
             {item.label}
           </a>
-        ))
-      }
-    </nav>
-  </div>
+        ))}
+      </nav>
+    </div>
+  )}
 </header>
 
 <script>

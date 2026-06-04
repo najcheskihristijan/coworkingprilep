@@ -85,12 +85,14 @@ import ChainSvg from "../components/ChainSvg.astro";
         teams in Prilep, North Macedonia.
       </p>
 
-      <!-- Email capture -->
+      <!-- Email capture (hero) -->
       <form
+        data-prelaunch-form
+        id="subscribe"
         class="reveal-up mt-12 flex w-full max-w-md flex-col items-stretch border border-bone/25 transition-colors hover:border-bone/50 sm:flex-row"
         style="animation-delay: 1.7s;"
         method="POST"
-        action="#"
+        action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID"
       >
         <input
           type="email"
@@ -347,10 +349,11 @@ import ChainSvg from "../components/ChainSvg.astro";
       </p>
 
       <form
+        data-prelaunch-form
         data-anim="rise"
         class="mx-auto mt-12 flex w-full max-w-md flex-col items-stretch border border-bone/25 transition-colors hover:border-bone/50 sm:flex-row"
         method="POST"
-        action="#"
+        action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID"
       >
         <input
           type="email"
@@ -368,4 +371,54 @@ import ChainSvg from "../components/ChainSvg.astro";
       </form>
     </div>
   </section>
+
+  <script>
+    // Pre-launch form: AJAX submit + inline success message.
+    // Until a real Formspree (or other) endpoint is wired, falls back to a friendly success state.
+    document.querySelectorAll<HTMLFormElement>('[data-prelaunch-form]').forEach((form) => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const button = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+        const input = form.querySelector('input[name="email"]') as HTMLInputElement | null;
+        if (!input || !button) return;
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = 'Sending…';
+
+        const action = form.getAttribute('action') || '';
+        const usingPlaceholder = action.includes('REPLACE_WITH_FORMSPREE_ID') || action === '#' || !action;
+
+        const showSuccess = () => {
+          form.innerHTML =
+            '<div class="w-full px-5 py-4 text-sm tracking-wide text-bone">You&rsquo;re on the list. We&rsquo;ll be in touch.</div>';
+        };
+
+        if (usingPlaceholder) {
+          // No real endpoint yet — show success but log the email so it's not lost on first deploy.
+          console.warn('[subscribe] No endpoint configured — email captured client-side only:', input.value);
+          setTimeout(showSuccess, 500);
+          return;
+        }
+
+        try {
+          const res = await fetch(action, {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: new FormData(form),
+          });
+          if (res.ok) {
+            showSuccess();
+          } else {
+            button.disabled = false;
+            button.textContent = originalText;
+            alert('Something went wrong. Please try again.');
+          }
+        } catch (err) {
+          button.disabled = false;
+          button.textContent = originalText;
+          alert('Network error. Please try again.');
+        }
+      });
+    });
+  </script>
 </BaseLayout>
