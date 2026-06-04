@@ -92,7 +92,7 @@ import ChainSvg from "../components/ChainSvg.astro";
         class="reveal-up mt-12 flex w-full max-w-md flex-col items-stretch border border-bone/25 transition-colors hover:border-bone/50 sm:flex-row"
         style="animation-delay: 1.7s;"
         method="POST"
-        action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID"
+        action="#"
       >
         <input
           type="email"
@@ -353,7 +353,7 @@ import ChainSvg from "../components/ChainSvg.astro";
         data-anim="rise"
         class="mx-auto mt-12 flex w-full max-w-md flex-col items-stretch border border-bone/25 transition-colors hover:border-bone/50 sm:flex-row"
         method="POST"
-        action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID"
+        action="#"
       >
         <input
           type="email"
@@ -373,52 +373,72 @@ import ChainSvg from "../components/ChainSvg.astro";
   </section>
 
   <script>
-    // Pre-launch form: AJAX submit + inline success message.
-    // Until a real Formspree (or other) endpoint is wired, falls back to a friendly success state.
-    document.querySelectorAll<HTMLFormElement>('[data-prelaunch-form]').forEach((form) => {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const button = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
-        const input = form.querySelector('input[name="email"]') as HTMLInputElement | null;
-        if (!input || !button) return;
-        const originalText = button.textContent;
-        button.disabled = true;
-        button.textContent = 'Sending…';
+    // Pre-launch email capture → Supabase `subscribers` table.
+    // RLS allows anon INSERT only; the publishable key is safe to ship client-side.
+    const SUPABASE_URL = "https://iikrjwnwejliupiwrnpy.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_ARIm4r9R-t0YCn-W91A6yw_qRuMm1Ra";
+    const SUBSCRIBE_ENDPOINT = `${SUPABASE_URL}/rest/v1/subscribers`;
 
-        const action = form.getAttribute('action') || '';
-        const usingPlaceholder = action.includes('REPLACE_WITH_FORMSPREE_ID') || action === '#' || !action;
+    document
+      .querySelectorAll<HTMLFormElement>("[data-prelaunch-form]")
+      .forEach((form) => {
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const button = form.querySelector<HTMLButtonElement>(
+            'button[type="submit"]',
+          );
+          const input = form.querySelector<HTMLInputElement>(
+            'input[name="email"]',
+          );
+          if (!input || !button) return;
 
-        const showSuccess = () => {
-          form.innerHTML =
-            '<div class="w-full px-5 py-4 text-sm tracking-wide text-bone">You&rsquo;re on the list. We&rsquo;ll be in touch.</div>';
-        };
+          const originalText = button.textContent;
+          const email = input.value.trim().toLowerCase();
+          if (!email) return;
 
-        if (usingPlaceholder) {
-          // No real endpoint yet — show success but log the email so it's not lost on first deploy.
-          console.warn('[subscribe] No endpoint configured — email captured client-side only:', input.value);
-          setTimeout(showSuccess, 500);
-          return;
-        }
+          button.disabled = true;
+          button.textContent = "Sending…";
 
-        try {
-          const res = await fetch(action, {
-            method: 'POST',
-            headers: { Accept: 'application/json' },
-            body: new FormData(form),
-          });
-          if (res.ok) {
-            showSuccess();
-          } else {
+          const showMessage = (text: string) => {
+            form.innerHTML = `<div class="w-full px-5 py-4 text-sm tracking-wide text-bone">${text}</div>`;
+          };
+
+          try {
+            const res = await fetch(SUBSCRIBE_ENDPOINT, {
+              method: "POST",
+              headers: {
+                apikey: SUPABASE_PUBLISHABLE_KEY,
+                Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+                "Content-Type": "application/json",
+                Prefer: "return=minimal",
+              },
+              body: JSON.stringify({ email, source: "website" }),
+            });
+
+            if (res.ok) {
+              showMessage(
+                "You&rsquo;re on the list. We&rsquo;ll be in touch.",
+              );
+            } else if (res.status === 409) {
+              // Duplicate email — unique constraint
+              showMessage(
+                "You&rsquo;re already on the list. We&rsquo;ll be in touch.",
+              );
+            } else {
+              const detail = await res.text().catch(() => "");
+              console.error("[subscribe]", res.status, detail);
+              button.disabled = false;
+              button.textContent = originalText;
+              alert("Something went wrong. Please try again.");
+            }
+          } catch (err) {
+            console.error("[subscribe]", err);
             button.disabled = false;
             button.textContent = originalText;
-            alert('Something went wrong. Please try again.');
+            alert("Network error. Please try again.");
           }
-        } catch (err) {
-          button.disabled = false;
-          button.textContent = originalText;
-          alert('Network error. Please try again.');
-        }
+        });
       });
-    });
   </script>
 </BaseLayout>
