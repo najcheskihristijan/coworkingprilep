@@ -317,3 +317,15 @@ body {
 }
 .prose-cws img { max-width: 100%; height: auto; border: 1px solid rgb(255 255 255 / 0.1); }
 .prose-cws hr { border: 0; height: 1px; background: rgb(255 255 255 / 0.1); margin: 3rem 0; }
+
+/* ── Industrial icon overrides for Lucide / Iconify ─────────── */
+/* Match the brand's "no rounded corners" rule. */
+.icon-cws {
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+.icon-cws * {
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
