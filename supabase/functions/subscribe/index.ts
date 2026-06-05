@@ -65,7 +65,7 @@ function emailHtml(): string {
           </tr>
           <tr>
             <td style="padding-bottom:24px;font-size:16px;line-height:1.65;color:rgba(255,255,255,0.75);">
-              Three of us &mdash; all from Prilep &mdash; started building this because the city needed a proper space to work outside of home and the caf&eacute;s. Two floors, 300m&sup2;, an industrial design, a backyard, a quiet upper floor, and a meeting room. That's what we're building.
+              We started building this because the city needed a proper space to work outside of home and the caf&eacute;s. Two floors, 300m&sup2;, an industrial design, a backyard, a quiet upper floor, and a meeting room. That's what we're building.
             </td>
           </tr>
           <tr>
@@ -75,14 +75,14 @@ function emailHtml(): string {
           </tr>
           <tr>
             <td style="padding-bottom:32px;font-size:15px;line-height:1.8;color:rgba(255,255,255,0.75);">
-              <span style="color:#d8091d;">&bull;</span>&nbsp; Occasional updates as we build &mdash; renovation milestones, design decisions, small wins<br/>
-              <span style="color:#d8091d;">&bull;</span>&nbsp; The opening email &mdash; the day we unlock the doors (target: late 2026)<br/>
+              <span style="color:#d8091d;">&bull;</span>&nbsp; Occasional updates as we build: renovation milestones, design decisions, small wins<br/>
+              <span style="color:#d8091d;">&bull;</span>&nbsp; The opening email, the day we unlock the doors (target: late 2026)<br/>
               <span style="color:#d8091d;">&bull;</span>&nbsp; Priority access for memberships before public sign-up opens
             </td>
           </tr>
           <tr>
             <td style="padding-bottom:32px;font-size:16px;line-height:1.65;color:rgba(255,255,255,0.75);">
-              If you have questions, want to bring a team in for a tour once the space is ready, or just want to chat &mdash; reply directly to this email. We read every message.
+              If you have questions, want to bring a team in for a tour once the space is ready, or just want to chat, reply directly to this email. We read every message.
             </td>
           </tr>
           <tr>
@@ -106,18 +106,18 @@ function emailHtml(): string {
 }
 
 function emailText(): string {
-  return `You're on the list — Coworking Prilep
+  return `You're on the list. Coworking Prilep.
 
 Thank you for signing up to be among the first to know about Coworking Prilep.
 
-Three of us — all from Prilep — started building this because the city needed a proper space to work outside of home and the cafés. Two floors, 300m², an industrial design, a backyard, a quiet upper floor, and a meeting room. That's what we're building.
+We started building this because the city needed a proper space to work outside of home and the cafés. Two floors, 300m², an industrial design, a backyard, a quiet upper floor, and a meeting room. That's what we're building.
 
 What to expect:
-• Occasional updates as we build — renovation milestones, design decisions, small wins
-• The opening email — the day we unlock the doors (target: late 2026)
+• Occasional updates as we build: renovation milestones, design decisions, small wins
+• The opening email, the day we unlock the doors (target: late 2026)
 • Priority access for memberships before public sign-up opens
 
-If you have questions, want to bring a team in for a tour once the space is ready, or just want to chat — reply directly to this email. We read every message.
+If you have questions, want to bring a team in for a tour once the space is ready, or just want to chat, reply directly to this email. We read every message.
 
 Talk soon,
 The team at Coworking Prilep
