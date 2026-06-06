@@ -5,7 +5,7 @@ publishDate: 2026-06-05
 tags: [intro, opening]
 ---
 
-Three of us — all from Prilep — started building this because the city needed a proper place to work outside of home and the cafés.
+We started building this because the city needed a proper place to work outside of home and the cafés.
 
 So we rented a 300m² space across two floors in the heart of Prilep, and we're turning it into the first coworking space in the city. Industrial design, dedicated desks, a meeting room, a kitchen, a backyard, and a quiet upper floor that protects the kind of focused work most spaces can't offer.
 
