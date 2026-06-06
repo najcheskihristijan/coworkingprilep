@@ -8,6 +8,7 @@ import ConsentBanner from "../components/ConsentBanner.astro";
 interface Props {
   title?: string;
   description?: string;
+  ogType?: "website" | "article";
   current?:
     | "home"
     | "about"
@@ -24,8 +25,9 @@ interface Props {
 }
 
 const {
-  title = "Coworking Prilep — Opening 2026",
-  description = "The first coworking space in Prilep, North Macedonia. 300m² across two floors. Opening 2026.",
+  title = "Coworking Prilep — First Coworking Space in North Macedonia",
+  description = "Dedicated desks, hot desks, meeting room, classroom, gym membership, fast fiber, backyard. The first coworking space in Prilep, MK. Opening 2026.",
+  ogType = "website",
   current = "home",
   hideHeader = false,
   hideFooter = false,
@@ -36,6 +38,11 @@ const {
 // Auto-noindex any /draft/* page so search engines never crawl unfinished content.
 const isDraft = Astro.url.pathname.startsWith("/draft");
 const shouldNoIndex = noindex || isDraft;
+
+// Per-page canonical + og:url. Falls back to root for the dev server.
+const siteOrigin =
+  Astro.site?.toString().replace(/\/$/, "") ?? "https://coworkingprilep.mk";
+const canonicalUrl = `${siteOrigin}${Astro.url.pathname.replace(/\/$/, "") || "/"}`;
 ---
 
 <!doctype html>
@@ -44,14 +51,20 @@ const shouldNoIndex = noindex || isDraft;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://coworkingprilep.mk" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Coworking Prilep" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:image" content="https://coworkingprilep.mk/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Coworking Prilep — the first coworking space in Prilep, North Macedonia. Opening 2026." />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="https://coworkingprilep.mk/og-image.png" />
     <meta name="theme-color" content="#000000" />
     {shouldNoIndex && (

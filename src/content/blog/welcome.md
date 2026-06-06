@@ -1,6 +1,6 @@
 ---
 title: What we're building
-description: A first note from the team behind Coworking Prilep — why we started, what's coming, and what to expect on this blog.
+description: Notes from the team behind Coworking Prilep — why we started, what we're building, and what to expect on this blog as we open in 2026.
 publishDate: 2026-06-05
 tags: [intro, opening]
 ---
