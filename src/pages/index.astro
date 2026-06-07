@@ -44,12 +44,6 @@ import { Icon } from "astro-icon/components";
       <span>Opening 2026</span>
     </div>
 
-    <!-- Red horizontal sweep line -->
-    <div
-      class="sweep-line absolute top-[42%] right-0 left-0 z-0 h-px bg-rust/70"
-    >
-    </div>
-
     <div class="relative z-10 max-w-6xl">
       <!-- Eyebrow -->
       <div class="mb-8">
@@ -62,24 +56,30 @@ import { Icon } from "astro-icon/components";
         </p>
       </div>
 
-      <!-- Hero title with line-by-line mask reveal -->
-      <h1
-        class="font-display text-[clamp(4.5rem,16vw,15rem)] leading-[0.82] tracking-tight uppercase"
-      >
-        <span class="mask-wrap">
-          <span class="mask-inner" style="animation-delay: 0.85s;">
-            Coworking
+      <!-- Hero title with line-by-line mask reveal + red line between -->
+      <div class="relative">
+        <div
+          class="sweep-line absolute top-1/2 right-0 left-0 z-0 h-px -translate-y-1/2 bg-rust/70"
+          aria-hidden="true"
+        ></div>
+        <h1
+          class="relative z-10 font-display text-[clamp(4.5rem,16vw,15rem)] leading-[0.82] tracking-tight uppercase"
+        >
+          <span class="mask-wrap">
+            <span class="mask-inner" style="animation-delay: 0.85s;">
+              Coworking
+            </span>
           </span>
-        </span>
-        <span class="mask-wrap">
-          <span
-            class="mask-inner text-rust"
-            style="animation-delay: 1.05s;"
-          >
-            Prilep
+          <span class="mask-wrap">
+            <span
+              class="mask-inner text-rust"
+              style="animation-delay: 1.05s;"
+            >
+              Prilep
+            </span>
           </span>
-        </span>
-      </h1>
+        </h1>
+      </div>
 
       <!-- Tagline -->
       <p
