@@ -62,9 +62,15 @@
           ad_personalization: state,
         });
       }
-      // Microsoft Clarity cookie consent (no-op if Clarity isn't loaded).
+      // Microsoft Clarity — Consent API v2 (no-op if Clarity isn't loaded).
+      // The Clarity project has the "Cookies" setting OFF (Consent Mode), so
+      // Clarity sets NO cookies until it receives this granted signal.
       if (typeof window.clarity === "function") {
-        window.clarity("consent", state === "granted");
+        var c = state === "granted" ? "granted" : "denied";
+        window.clarity("consentv2", {
+          ad_Storage: c,
+          analytics_Storage: c,
+        });
       }
     }
 
