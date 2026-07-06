@@ -43,6 +43,11 @@ const shouldNoIndex = noindex || isDraft;
 const siteOrigin =
   Astro.site?.toString().replace(/\/$/, "") ?? "https://coworkingprilep.mk";
 const canonicalUrl = `${siteOrigin}${Astro.url.pathname.replace(/\/$/, "") || "/"}`;
+
+// Microsoft Clarity (free session replay + heatmaps).
+// Paste your Clarity project ID here (clarity.microsoft.com → Settings → Overview).
+// Leave empty to disable — nothing loads until an ID is set.
+const CLARITY_ID = "";
 ---
 
 <!doctype html>
@@ -96,6 +101,18 @@ const canonicalUrl = `${siteOrigin}${Astro.url.pathname.replace(/\/$/, "") || "/
           gtag("config", "G-YDCX2P736Y");
         </script>
       </>
+    )}
+    {!isDraft && CLARITY_ID && (
+      <script is:inline set:html={`
+        // Microsoft Clarity loader. Cookie use is gated on consent: enable
+        // "Cookie consent" in the Clarity dashboard, and the ConsentBanner calls
+        // clarity("consent") on accept (mirrors the GA consent flow above).
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${CLARITY_ID}");
+      `} />
     )}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

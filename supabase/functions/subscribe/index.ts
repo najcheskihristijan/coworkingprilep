@@ -76,7 +76,7 @@ function emailHtml(): string {
           <tr>
             <td style="padding-bottom:32px;font-size:15px;line-height:1.8;color:rgba(255,255,255,0.75);">
               <span style="color:#d8091d;">&bull;</span>&nbsp; Occasional updates as we build: renovation milestones, design decisions, small wins<br/>
-              <span style="color:#d8091d;">&bull;</span>&nbsp; The opening email, the day we unlock the doors (target: late 2026)<br/>
+              <span style="color:#d8091d;">&bull;</span>&nbsp; The opening email, the day we unlock the doors (target: August 2026)<br/>
               <span style="color:#d8091d;">&bull;</span>&nbsp; Priority access for memberships before public sign-up opens
             </td>
           </tr>
@@ -114,7 +114,7 @@ We started building this because the city needed a proper space to work outside 
 
 What to expect:
 • Occasional updates as we build: renovation milestones, design decisions, small wins
-• The opening email, the day we unlock the doors (target: late 2026)
+• The opening email, the day we unlock the doors (target: August 2026)
 • Priority access for memberships before public sign-up opens
 
 If you have questions, want to bring a team in for a tour once the space is ready, or just want to chat, reply directly to this email. We read every message.

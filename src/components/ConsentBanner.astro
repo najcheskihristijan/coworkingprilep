@@ -54,13 +54,18 @@
     if (!banner) return;
 
     function applyConsent(state) {
-      if (typeof window.gtag !== "function") return;
-      window.gtag("consent", "update", {
-        analytics_storage: state,
-        ad_storage: state,
-        ad_user_data: state,
-        ad_personalization: state,
-      });
+      if (typeof window.gtag === "function") {
+        window.gtag("consent", "update", {
+          analytics_storage: state,
+          ad_storage: state,
+          ad_user_data: state,
+          ad_personalization: state,
+        });
+      }
+      // Microsoft Clarity cookie consent (no-op if Clarity isn't loaded).
+      if (typeof window.clarity === "function") {
+        window.clarity("consent", state === "granted");
+      }
     }
 
     function hideBanner() {

@@ -390,17 +390,94 @@ import { Icon } from "astro-icon/components";
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_ARIm4r9R-t0YCn-W91A6yw_qRuMm1Ra";
     const SUBSCRIBE_ENDPOINT = `${SUPABASE_URL}/functions/v1/subscribe`;
+    const TRACK_ENDPOINT = `${SUPABASE_URL}/functions/v1/track`;
+
+    // ── Funnel tracking ("Hotjar-lite") ───────────────────────────────
+    // One beacon per step so we can see how far people get:
+    //   view → focus → input (started typing) → valid → submit → outcome
+    // Uses sendBeacon so it never blocks the UI or the submit.
+    const w = window as any;
+    let sid = "";
+    try {
+      sid = sessionStorage.getItem("cwp_sid") || "";
+      if (!sid) {
+        sid =
+          (w.crypto?.randomUUID?.() as string) ||
+          `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+        sessionStorage.setItem("cwp_sid", sid);
+      }
+    } catch {
+      sid = `${Date.now().toString(36)}-nostore`;
+    }
+
+    const track = (event: string, meta?: Record<string, unknown>) => {
+      try {
+        const body = JSON.stringify({
+          events: [{ session_id: sid, event, path: location.pathname, meta }],
+        });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(
+            TRACK_ENDPOINT,
+            new Blob([body], { type: "application/json" }),
+          );
+        } else {
+          fetch(TRACK_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body,
+            keepalive: true,
+          }).catch(() => {});
+        }
+      } catch {
+        /* tracking must never break the form */
+      }
+    };
+
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     document
       .querySelectorAll<HTMLFormElement>("[data-prelaunch-form]")
       .forEach((form) => {
+        const input = form.querySelector<HTMLInputElement>(
+          'input[name="email"]',
+        );
+
+        // Fire each funnel step at most once per session-form.
+        const fired = new Set<string>();
+        const once = (event: string, meta?: Record<string, unknown>) => {
+          if (fired.has(event)) return;
+          fired.add(event);
+          track(event, meta);
+        };
+
+        // "view" — the form actually scrolled into sight.
+        if ("IntersectionObserver" in window) {
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach((en) => {
+              if (en.isIntersecting) {
+                once("view");
+                io.disconnect();
+              }
+            });
+          });
+          io.observe(form);
+        } else {
+          once("view");
+        }
+
+        if (input) {
+          input.addEventListener("focus", () => once("focus"));
+          // "input" = they typed the first character into the email field.
+          input.addEventListener("input", () => {
+            once("input");
+            if (EMAIL_RE.test(input.value.trim())) once("valid");
+          });
+        }
+
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
           const button = form.querySelector<HTMLButtonElement>(
             'button[type="submit"]',
-          );
-          const input = form.querySelector<HTMLInputElement>(
-            'input[name="email"]',
           );
           if (!input || !button) return;
 
@@ -408,6 +485,7 @@ import { Icon } from "astro-icon/components";
           const email = input.value.trim().toLowerCase();
           if (!email) return;
 
+          track("submit");
           button.disabled = true;
           button.textContent = "Sending…";
 
@@ -428,12 +506,13 @@ import { Icon } from "astro-icon/components";
             const data = await res.json().catch(() => ({}));
 
             if (res.ok && data.duplicate) {
+              track("duplicate");
               showMessage(
                 "You&rsquo;re already on the list. We&rsquo;ll be in touch.",
               );
             } else if (res.ok) {
+              track("success", { emailSent: !!data.emailSent });
               // GA conversion event — only fires when consent is granted.
-              const w = window as any;
               if (typeof w.gtag === "function") {
                 w.gtag("event", "subscribe", {
                   source: "website_prelaunch",
@@ -447,12 +526,14 @@ import { Icon } from "astro-icon/components";
                 "You&rsquo;re on the list. Check your inbox for a welcome note.",
               );
             } else {
+              track("error", { status: res.status });
               console.error("[subscribe]", res.status, data);
               button.disabled = false;
               button.textContent = originalText;
               alert("Something went wrong. Please try again.");
             }
           } catch (err) {
+            track("error", { network: true });
             console.error("[subscribe]", err);
             button.disabled = false;
             button.textContent = originalText;
