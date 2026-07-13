@@ -4,18 +4,6 @@ import PageHero from "../../components/PageHero.astro";
 
 const credits = [
   {
-    name: "Day pass",
-    price: "€5",
-    period: "/ day",
-    blurb: "Try us out. Same-day only, no rollover.",
-    perks: [
-      "Any open hot desk",
-      "Wi-Fi + coffee + kitchen",
-      "Backyard access",
-      "8AM – 10PM access",
-    ],
-  },
-  {
     name: "Starter 8",
     price: "€8",
     period: "/ 8 hours",
@@ -142,12 +130,12 @@ const rooms = [
           Hours as credits.
         </h2>
         <p class="mt-4 text-bone/65">
-          Three entry points before a monthly membership. Use the hours when you need them.
+          Two entry points before a monthly membership. Use the hours when you need them.
         </p>
       </div>
       <div
         data-anim="rise-stagger"
-        class="grid gap-px bg-bone/10 md:grid-cols-3"
+        class="grid gap-px bg-bone/10 md:grid-cols-2"
       >
         {credits.map((plan) => (
           <div class="flex flex-col bg-ink p-8">
