@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+
+// Personal Data Protection / Privacy Policy.
+// NOTE: [BRACKETED] items must be completed with the registered company details
+// before this is treated as final. Review by a qualified lawyer is recommended.
+const updated = "21 July 2026";
+---
+
+<BaseLayout
+  current="home"
+  title="Privacy & Data Protection — Coworking Prilep"
+  description="How Coworking Prilep collects, uses, and protects the personal data of website visitors and card users, in line with the Law on Personal Data Protection of North Macedonia."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Privacy Policy"
+    subtitle="How we protect the personal data of website visitors and card users. Aligned with the Law on Personal Data Protection of the Republic of North Macedonia (Official Gazette 42/2020) and the GDPR."
+  />
+
+  <article class="px-6 pb-24 md:px-12 md:pb-32">
+    <div class="prose-cws mx-auto max-w-3xl">
+      <p class="font-mono text-[11px] tracking-[0.25em] text-bone/40 uppercase">
+        Last updated: {updated}
+      </p>
+
+      <h2>1. Who we are</h2>
+      <p>
+        This website (coworkingprilep.mk) is operated by
+        <strong>[LEGAL ENTITY NAME]</strong>, a company registered in Prilep,
+        North Macedonia (the "Company", "we", "us"). We operate Coworking Prilep,
+        a shared workspace, and this website. For the purposes of data protection
+        law, we are the <strong>data controller</strong> of the personal data
+        described below.
+      </p>
+      <ul>
+        <li><strong>Registered name:</strong> [LEGAL ENTITY NAME]</li>
+        <li><strong>Address:</strong> [REGISTERED ADDRESS], Prilep, North Macedonia</li>
+        <li><strong>Company reg. no. (ЕМБС):</strong> [EMBS]</li>
+        <li><strong>Tax no. (ЕДБ):</strong> [EDB]</li>
+        <li><strong>Email:</strong> <a href="mailto:coworkingprilep@outlook.com">coworkingprilep@outlook.com</a></li>
+      </ul>
+
+      <h2>2. What data we collect</h2>
+      <p>We collect only what we need to run the service:</p>
+      <ul>
+        <li>
+          <strong>Contact data</strong> — your email address when you join our
+          pre-launch list, and your name and email if you contact us or create a
+          booking or membership.
+        </li>
+        <li>
+          <strong>Payment data</strong> — when you pay by card, the payment is
+          processed directly by ProCredit Bank's secure payment gateway. We
+          <strong>do not receive, see, or store your full card number, expiry, or
+          CVV</strong>. We may retain a transaction reference, the last four
+          digits of the card, the amount, and the date for accounting and
+          support.
+        </li>
+        <li>
+          <strong>Usage &amp; device data</strong> — with your consent, we use
+          analytics tools that collect information such as pages viewed, approximate
+          location, device and browser type, and interactions with the site.
+        </li>
+        <li>
+          <strong>Technical logs</strong> — our servers record standard data such
+          as IP address and request time for security and reliability.
+        </li>
+      </ul>
+
+      <h2>3. Why we use it and our legal basis</h2>
+      <ul>
+        <li><strong>To provide the service</strong> (accounts, bookings, memberships) — performance of a contract.</li>
+        <li><strong>To process payments and issue receipts/invoices</strong> — contract and legal obligation.</li>
+        <li><strong>To send you updates you asked for</strong> (pre-launch and service emails) — your consent.</li>
+        <li><strong>To keep the site secure and improve it</strong> (analytics) — your consent and our legitimate interest.</li>
+        <li><strong>To meet accounting and tax duties</strong> — legal obligation.</li>
+      </ul>
+
+      <h2>4. Cookies &amp; analytics</h2>
+      <p>
+        We show a cookie banner on your first visit. Analytics and any
+        non-essential cookies load <strong>only after you accept</strong>. We use
+        Google Analytics (aggregate visitor statistics) and Microsoft Clarity
+        (anonymous session insights and heatmaps). You can change or withdraw your
+        choice at any time by clearing the site's cookies and reloading.
+      </p>
+
+      <h2>5. Who we share data with</h2>
+      <p>
+        We do not sell your personal data. We share it only with service providers
+        that help us operate, each bound to protect it and use it only on our
+        instructions:
+      </p>
+      <ul>
+        <li><strong>ProCredit Bank / its card processor</strong> — to process card payments.</li>
+        <li><strong>Supabase</strong> — database and authentication hosting.</li>
+        <li><strong>Resend</strong> — sending transactional and confirmation emails.</li>
+        <li><strong>Google (Analytics)</strong> and <strong>Microsoft (Clarity)</strong> — website analytics, subject to your consent.</li>
+        <li><strong>Our hosting provider</strong> — running the website infrastructure.</li>
+      </ul>
+      <p>
+        We may also disclose data where required by law or to protect our legal
+        rights.
+      </p>
+
+      <h2>6. International transfers</h2>
+      <p>
+        Some of our providers process data outside North Macedonia, including in
+        the EU and the USA. Where this happens, we rely on appropriate safeguards
+        (such as providers' standard contractual clauses and adequacy measures) to
+        protect your data to the standard required by law.
+      </p>
+
+      <h2>7. How long we keep it</h2>
+      <p>
+        We keep personal data only as long as necessary: subscriber and marketing
+        data until you unsubscribe or ask us to delete it; account, booking, and
+        membership data for the life of your relationship with us; and
+        payment/invoice records for the period required by tax and accounting law
+        (currently up to 10 years).
+      </p>
+
+      <h2>8. Your rights</h2>
+      <p>Under the Law on Personal Data Protection you have the right to:</p>
+      <ul>
+        <li>access the data we hold about you;</li>
+        <li>correct inaccurate data;</li>
+        <li>delete your data ("right to be forgotten");</li>
+        <li>restrict or object to certain processing;</li>
+        <li>receive your data in a portable format;</li>
+        <li>withdraw consent at any time (without affecting past processing).</li>
+      </ul>
+      <p>
+        To exercise any of these, email
+        <a href="mailto:coworkingprilep@outlook.com">coworkingprilep@outlook.com</a>.
+        You also have the right to lodge a complaint with the
+        <strong>Agency for Personal Data Protection of North Macedonia</strong>
+        (Агенција за заштита на личните податоци, <a href="https://azlp.mk" target="_blank" rel="noopener noreferrer">azlp.mk</a>).
+      </p>
+
+      <h2>9. How we protect your data</h2>
+      <p>
+        The site is served over encrypted HTTPS (TLS). Access to our database is
+        restricted with row-level security and role-based controls, and card data
+        is handled entirely within the bank's PCI-DSS-compliant gateway. We apply
+        appropriate technical and organisational measures to guard against
+        unauthorised access, loss, or misuse.
+      </p>
+
+      <h2>10. Children</h2>
+      <p>
+        Our services are intended for people aged 18 and over. We do not knowingly
+        collect data from children.
+      </p>
+
+      <h2>11. Changes to this policy</h2>
+      <p>
+        We may update this policy from time to time. The "last updated" date at the
+        top shows the current version. Material changes will be highlighted on this
+        page.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        Questions about this policy or your data? Email
+        <a href="mailto:coworkingprilep@outlook.com">coworkingprilep@outlook.com</a>
+        or write to [LEGAL ENTITY NAME], [REGISTERED ADDRESS], Prilep, North Macedonia.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

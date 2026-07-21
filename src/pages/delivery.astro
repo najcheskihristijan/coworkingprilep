@@ -1,0 +1,94 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+
+// Service delivery / fulfilment policy for card purchases.
+const updated = "21 July 2026";
+---
+
+<BaseLayout
+  current="pricing"
+  title="Service Delivery Policy — Coworking Prilep"
+  description="How and when Coworking Prilep delivers the services you buy online: confirmation, access, and timing."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Delivery Policy"
+    subtitle="How and when we deliver the services you buy online: your confirmation, your access, and the timing."
+  />
+
+  <article class="px-6 pb-24 md:px-12 md:pb-32">
+    <div class="prose-cws mx-auto max-w-3xl">
+      <p class="font-mono text-[11px] tracking-[0.25em] text-bone/40 uppercase">
+        Last updated: {updated}
+      </p>
+
+      <h2>1. What we deliver</h2>
+      <p>
+        Coworking Prilep, operated by <strong>[LEGAL ENTITY NAME]</strong>, sells
+        <strong>services</strong> — access to our shared workspace and its
+        facilities (dedicated desks, hot desks, meeting room, classroom, and
+        related amenities). These are provided at our premises in Prilep, North
+        Macedonia, and there is normally no physical item to ship.
+      </p>
+
+      <h2>2. Confirmation of your purchase</h2>
+      <p>
+        As soon as your card payment is approved, we send a
+        <strong>confirmation email with your payment receipt</strong> to the
+        address you provided, usually within a few minutes. This email is your
+        proof of purchase and sets out what you bought and the amount paid. An
+        invoice is issued as described in section 5.
+      </p>
+
+      <h2>3. When your service becomes available</h2>
+      <ul>
+        <li>
+          <strong>Memberships</strong> become active on the start date shown at
+          checkout (immediately, or on a date you choose). Access details are
+          included in your confirmation or provided at the space.
+        </li>
+        <li>
+          <strong>Passes and hour credits</strong> are available to use straight
+          away, within their stated validity period.
+        </li>
+        <li>
+          <strong>Meeting room and classroom bookings</strong> are reserved for the
+          specific date and time you select and confirmed by email.
+        </li>
+      </ul>
+
+      <h2>4. If you don't receive your confirmation</h2>
+      <p>
+        If you don't get a confirmation email within a few minutes, please check
+        your spam folder, then contact us at
+        <a href="mailto:coworkingprilep@outlook.com">coworkingprilep@outlook.com</a>.
+        We'll confirm your purchase and resend it. Do not attempt the payment again
+        before checking with us, to avoid a duplicate charge (which we would refund
+        under our <a href="/refunds">Refund Policy</a>).
+      </p>
+
+      <h2>5. Invoices</h2>
+      <p>
+        An invoice for your purchase is available on request and, where required, is
+        sent to your email. If you need an invoice with company (B2B) details,
+        include your company name, address, and tax number (ЕДБ) when you buy or by
+        email afterwards.
+      </p>
+
+      <h2>6. Physical items</h2>
+      <p>
+        If we ever sell or send a physical item (for example, a welcome package or
+        merchandise), we will hand it over at the space or deliver it within North
+        Macedonia within <strong>[X] business days</strong>, and the specific terms
+        will be shown at the time of purchase.
+      </p>
+
+      <h2>7. Contact</h2>
+      <p>
+        [LEGAL ENTITY NAME], [REGISTERED ADDRESS], Prilep, North Macedonia ·
+        <a href="mailto:coworkingprilep@outlook.com">coworkingprilep@outlook.com</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>

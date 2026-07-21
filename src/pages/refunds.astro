@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+
+// Refund / cancellation policy for card purchases.
+// NOTE: adjust the cancellation windows and amounts to your final commercial terms.
+const updated = "21 July 2026";
+---
+
+<BaseLayout
+  current="pricing"
+  title="Refund Policy — Coworking Prilep"
+  description="How refunds and cancellations work for memberships, passes, credits, and room bookings paid by card at Coworking Prilep."
+>
+  <PageHero
+    eyebrow="Legal"
+    title="Refund Policy"
+    subtitle="How cancellations and refunds work for memberships, passes, credits, and room bookings paid by card."
+  />
+
+  <article class="px-6 pb-24 md:px-12 md:pb-32">
+    <div class="prose-cws mx-auto max-w-3xl">
+      <p class="font-mono text-[11px] tracking-[0.25em] text-bone/40 uppercase">
+        Last updated: {updated}
+      </p>
+
+      <h2>1. Scope</h2>
+      <p>
+        This policy applies to purchases made from Coworking Prilep, operated by
+        <strong>[LEGAL ENTITY NAME]</strong>, whether paid on our website by card
+        or in person. It covers memberships, day and hour passes, hour credits, and
+        meeting-room and classroom bookings.
+      </p>
+
+      <h2>2. Your right to cancel a distance purchase</h2>
+      <p>
+        Under the Law on Consumer Protection of North Macedonia, for services
+        bought at a distance you generally have <strong>14 days</strong> to
+        withdraw. Where you ask us to begin the service before the 14 days end
+        (for example, an immediately active membership or a booking for a date
+        within that period), you agree that the withdrawal right ends once the
+        service has been fully performed, and that for partially used services we
+        may charge for the part already provided.
+      </p>
+
+      <h2>3. Memberships</h2>
+      <ul>
+        <li>
+          Monthly memberships renew each month. You can cancel at any time; the
+          cancellation takes effect at the end of the current paid month and you
+          keep access until then.
+        </li>
+        <li>
+          We do not refund the unused part of a month once the month has started,
+          unless required by law or agreed by us in writing.
+        </li>
+        <li>
+          If you cancel before your membership has started and before any access
+          has been used, we refund it in full.
+        </li>
+      </ul>
+
+      <h2>4. Passes &amp; hour credits</h2>
+      <ul>
+        <li>Unused passes and credits are refundable within 14 days of purchase, provided none of the hours or access have been used.</li>
+        <li>Once any part of a pass or credit has been used, it is non-refundable, and unused hours simply expire at the end of their validity period.</li>
+      </ul>
+
+      <h2>5. Meeting room &amp; classroom bookings</h2>
+      <ul>
+        <li><strong>Cancelled 24+ hours before</strong> the booking start time: full refund.</li>
+        <li><strong>Cancelled less than 24 hours before</strong>, or a no-show: non-refundable.</li>
+        <li>If we cancel a confirmed booking for any reason, you receive a full refund or a free re-booking, your choice.</li>
+      </ul>
+
+      <h2>6. Incorrect, duplicate, or unauthorised charges</h2>
+      <p>
+        If you are charged in error, charged twice, or believe a charge was not
+        authorised, contact us right away. Verified incorrect or duplicate charges
+        are refunded in full.
+      </p>
+
+      <h2>7. How refunds are paid</h2>
+      <p>
+        Approved refunds are returned to the <strong>same card</strong> used for
+        the original payment, through the bank's payment gateway. We process
+        refunds within <strong>[X] business days</strong> of approval; it may then
+        take a further few business days for your bank to show the amount,
+        depending on your card issuer. Refunds are made in the original currency
+        (MKD).
+      </p>
+
+      <h2>8. How to request a refund</h2>
+      <p>
+        Email <a href="mailto:coworkingprilep@outlook.com">coworkingprilep@outlook.com</a>
+        with your name, the email used for the purchase, the transaction date and
+        amount, and the reason for the request. We aim to respond within
+        <strong>[X] business days</strong>.
+      </p>
+
+      <h2>9. Contact</h2>
+      <p>
+        [LEGAL ENTITY NAME], [REGISTERED ADDRESS], Prilep, North Macedonia ·
+        <a href="mailto:coworkingprilep@outlook.com">coworkingprilep@outlook.com</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>
