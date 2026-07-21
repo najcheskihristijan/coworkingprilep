@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import LangToggle from "../components/LangToggle.astro";
 
 // Service delivery / fulfilment policy for card purchases.
 const updated = "21 July 2026";
@@ -16,6 +17,8 @@ const updated = "21 July 2026";
     title="Delivery Policy"
     subtitle="How and when we deliver the services you buy online: your confirmation, your access, and the timing."
   />
+
+  <LangToggle en="/delivery" mk="/mk/isporaka" current="en" />
 
   <article class="px-6 pb-24 md:px-12 md:pb-32">
     <div class="prose-cws mx-auto max-w-3xl">

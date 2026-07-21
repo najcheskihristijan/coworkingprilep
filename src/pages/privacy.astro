@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import LangToggle from "../components/LangToggle.astro";
 
 // Personal Data Protection / Privacy Policy.
 // NOTE: [BRACKETED] items must be completed with the registered company details
@@ -18,6 +19,8 @@ const updated = "21 July 2026";
     title="Privacy Policy"
     subtitle="How we protect the personal data of website visitors and card users. Aligned with the Law on Personal Data Protection of the Republic of North Macedonia (Official Gazette 42/2020) and the GDPR."
   />
+
+  <LangToggle en="/privacy" mk="/mk/privatnost" current="en" />
 
   <article class="px-6 pb-24 md:px-12 md:pb-32">
     <div class="prose-cws mx-auto max-w-3xl">

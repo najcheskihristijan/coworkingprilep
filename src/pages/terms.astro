@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import LangToggle from "../components/LangToggle.astro";
 
 // Terms of Service. [BRACKETED] items need the registered company details.
 // Not legal advice — have a qualified lawyer review before relying on it.
@@ -17,6 +18,8 @@ const updated = "21 July 2026";
     title="Terms of Service"
     subtitle="The terms that govern your membership, bookings, payments, and use of our space and website."
   />
+
+  <LangToggle en="/terms" mk="/mk/uslovi" current="en" />
 
   <article class="px-6 pb-24 md:px-12 md:pb-32">
     <div class="prose-cws mx-auto max-w-3xl">

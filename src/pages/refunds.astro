@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import LangToggle from "../components/LangToggle.astro";
 
 // Refund / cancellation policy for card purchases.
 // NOTE: adjust the cancellation windows and amounts to your final commercial terms.
@@ -17,6 +18,8 @@ const updated = "21 July 2026";
     title="Refund Policy"
     subtitle="How cancellations and refunds work for memberships, passes, credits, and room bookings paid by card."
   />
+
+  <LangToggle en="/refunds" mk="/mk/povrat" current="en" />
 
   <article class="px-6 pb-24 md:px-12 md:pb-32">
     <div class="prose-cws mx-auto max-w-3xl">

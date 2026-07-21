@@ -1,0 +1,22 @@
+---
+// Small EN · MK language switch for the legal pages.
+interface Props {
+  en: string;
+  mk: string;
+  current: "en" | "mk";
+}
+const { en, mk, current } = Astro.props;
+const base = "font-mono text-[10px] tracking-[0.3em] uppercase transition-colors";
+---
+
+<div class="mx-auto max-w-3xl px-6 pt-8 md:px-12">
+  <div class="inline-flex items-center gap-3">
+    <a href={en} class:list={[base, current === "en" ? "text-rust" : "text-bone/45 hover:text-bone"]}>
+      English
+    </a>
+    <span class="text-bone/25">·</span>
+    <a href={mk} class:list={[base, current === "mk" ? "text-rust" : "text-bone/45 hover:text-bone"]}>
+      Македонски
+    </a>
+  </div>
+</div>

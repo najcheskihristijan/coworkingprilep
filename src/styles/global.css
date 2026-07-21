@@ -256,6 +256,13 @@ body {
   margin-top: 2.5rem;
   margin-bottom: 0.25rem;
 }
+/* Macedonian legal pages: Bebas Neue has no Cyrillic, so headings use Inter (bold). */
+.mk-legal h1,
+.mk-legal .prose-cws h2,
+.mk-legal .prose-cws h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+}
 .prose-cws h4 {
   font-family: var(--font-mono);
   font-size: 0.7rem;
