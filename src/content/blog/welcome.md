@@ -7,7 +7,7 @@ tags: [intro, opening]
 
 We started building this because the city needed a proper place to work outside of home and the cafés.
 
-So we rented a 300m² space across two floors in the heart of Prilep, and we're turning it into the first coworking space in the city. Industrial design, dedicated desks, a meeting room, a kitchen, a backyard, and a quiet upper floor that protects the kind of focused work most spaces can't offer.
+So we rented a 300m² space across two floors in the heart of Prilep, and we're turning it into the first coworking space in the city. Industrial design, dedicated desks, a meeting room, a kitchen, and a quiet upper floor that protects the kind of focused work most spaces can't offer.
 
 Renovation starts later this year. We're opening in 2026.
 
