@@ -62,6 +62,9 @@ const purchasable = plans.filter((p) => p.purchasable);
             <div class="shrink-0 text-right">
               <div id="sum-mkd" class="font-display text-4xl text-rust"></div>
               <div id="sum-eur" class="mt-1 font-mono text-[11px] tracking-[0.2em] text-bone/40 uppercase"></div>
+              <div id="sum-once" class="mt-2 font-mono text-[9px] tracking-[0.2em] text-bone/45 uppercase" hidden>
+                One-time payment<br />Does not auto-renew
+              </div>
             </div>
           </div>
         </div>
@@ -163,6 +166,9 @@ const purchasable = plans.filter((p) => p.purchasable);
       document.getElementById("sum-mkd").textContent =
         plan.mkd.toLocaleString("en-US") + " ден";
       document.getElementById("sum-eur").textContent = "≈ €" + plan.eur;
+      // Monthly plans are billed one month at a time; make that explicit so the
+      // page matches the Terms and Refund Policy.
+      if (plan.group === "monthly") document.getElementById("sum-once").hidden = false;
 
       var form = document.getElementById("pay-form");
       var btn = document.getElementById("pay-btn");
