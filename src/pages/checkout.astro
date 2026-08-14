@@ -16,6 +16,8 @@ import { plans } from "../data/plans";
 // PAY_ENDPOINT stays empty until the payment service is live (blocked on the
 // bank re-issuing a cert/key pair that actually match). Empty = checkout shows
 // a "not yet live" notice instead of a dead button.
+// Set to "/api/pay" (proxied to payment-service) once the bank returns a
+// signed cert that matches our key. Empty = checkout shows "coming soon".
 const PAY_ENDPOINT = "";
 
 const purchasable = plans.filter((p) => p.purchasable);

@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+<BaseLayout current="pricing" noindex={true} title="Payment not completed — Coworking Prilep">
+  <section class="px-6 pt-32 pb-24 md:px-12 md:pt-40">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        Неуспешна уплата · Payment not completed
+      </div>
+      <h1 class="font-display text-4xl leading-[0.95] uppercase md:text-6xl">
+        Payment<br />didn't go through.
+      </h1>
+      <p class="mt-8 text-bone/75">
+        Уплатата не е завршена и <strong class="text-bone">не сте наплатени</strong>.
+        Можете да пробате повторно.
+      </p>
+      <p class="mt-3 text-sm text-bone/55">
+        You have not been charged. You can try again, or contact us and we'll sort it out.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/pricing" class="bg-rust px-8 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep">
+          Try again
+        </a>
+        <a href="mailto:coworkingprilep@outlook.com" class="border border-bone/25 px-8 py-4 font-mono text-[11px] tracking-[0.25em] text-bone uppercase transition-colors hover:border-rust hover:text-rust">
+          Contact us
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

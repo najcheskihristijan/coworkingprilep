@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+<BaseLayout current="pricing" noindex={true} title="Payment successful — Coworking Prilep">
+  <section class="px-6 pt-32 pb-24 md:px-12 md:pt-40">
+    <div class="mx-auto max-w-2xl">
+      <div class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        Успешна уплата · Payment successful
+      </div>
+      <h1 class="font-display text-4xl leading-[0.95] uppercase md:text-6xl">
+        Thank you.<br />You're in.
+      </h1>
+      <p class="mt-8 text-bone/75">
+        Плаќањето е примено. Потврда за уплата ви е испратена на вашата е-пошта.
+      </p>
+      <p class="mt-3 text-sm text-bone/55">
+        Payment received. A receipt has been emailed to you. If it doesn't arrive
+        within a few minutes, check spam or contact us and we'll resend it.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/" class="bg-rust px-8 py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep">
+          Back to site
+        </a>
+        <a href="mailto:coworkingprilep@outlook.com" class="border border-bone/25 px-8 py-4 font-mono text-[11px] tracking-[0.25em] text-bone uppercase transition-colors hover:border-rust hover:text-rust">
+          Contact us
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
