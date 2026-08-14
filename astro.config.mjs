@@ -11,9 +11,12 @@ export default defineConfig({
     react(),
     icon(),
     sitemap({
-      // Keep draft + coming-soon out of the sitemap.
+      // Keep draft, coming-soon, and noindexed commerce pages out of the sitemap.
       filter: (page) =>
-        !page.includes("/draft") && !page.includes("/coming-soon"),
+        !page.includes("/draft") &&
+        !page.includes("/coming-soon") &&
+        !page.includes("/pricing") &&
+        !page.includes("/checkout"),
     }),
   ],
   vite: {

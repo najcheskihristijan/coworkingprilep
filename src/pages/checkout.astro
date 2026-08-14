@@ -1,0 +1,236 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { plans } from "../data/plans";
+
+// Checkout. Static page: the plan is read from ?plan= on the client.
+//
+// FLOW (per ProCredit / Quipu E-Commerce PG spec v1.1):
+//   1. This page POSTs {plan, name, email, consumerDevice} to PAY_ENDPOINT.
+//   2. That server (VPS, holds the mTLS client cert) calls Create Order.
+//   3. Gateway returns {id, password, hppUrl}.
+//   4. We redirect the browser to `hppUrl?id=..&password=..` (bank's Hosted
+//      Payment Page). Card data is entered on the BANK's page, never here.
+//   5. Bank redirects back to hppRedirectUrl; server calls Get Order Details,
+//      confirms payment, stores the order and emails the receipt.
+//
+// PAY_ENDPOINT stays empty until the payment service is live (blocked on the
+// bank re-issuing a cert/key pair that actually match). Empty = checkout shows
+// a "not yet live" notice instead of a dead button.
+const PAY_ENDPOINT = "";
+
+const purchasable = plans.filter((p) => p.purchasable);
+---
+
+<BaseLayout
+  current="pricing"
+  noindex={true}
+  hideFooter={true}
+  title="Checkout — Coworking Prilep"
+  description="Complete your Coworking Prilep purchase."
+>
+  <section class="px-6 pt-32 pb-24 md:px-12 md:pt-40">
+    <div class="mx-auto max-w-3xl">
+      <div class="mb-4 font-mono text-[10px] tracking-[0.35em] text-rust uppercase">
+        Checkout
+      </div>
+      <h1 class="font-display text-4xl leading-[0.95] uppercase md:text-6xl">
+        Complete your<br />purchase.
+      </h1>
+
+      <!-- Unknown / missing plan -->
+      <div id="no-plan" class="mt-12" hidden>
+        <p class="text-bone/70">
+          No plan selected. Pick one from the
+          <a href="/pricing" class="text-rust hover:opacity-70">pricing page</a>.
+        </p>
+      </div>
+
+      <div id="checkout" class="mt-12" hidden>
+        <!-- Order summary -->
+        <div class="border border-bone/15">
+          <div class="border-b border-bone/15 px-6 py-4 font-mono text-[10px] tracking-[0.3em] text-bone/45 uppercase">
+            Your order
+          </div>
+          <div class="flex items-start justify-between gap-6 px-6 py-6">
+            <div>
+              <div id="sum-name" class="font-display text-2xl uppercase md:text-3xl"></div>
+              <div id="sum-period" class="mt-1 font-mono text-[11px] tracking-[0.2em] text-bone/45 uppercase"></div>
+              <p id="sum-blurb" class="mt-3 max-w-sm text-sm text-bone/60"></p>
+            </div>
+            <div class="shrink-0 text-right">
+              <div id="sum-mkd" class="font-display text-4xl text-rust"></div>
+              <div id="sum-eur" class="mt-1 font-mono text-[11px] tracking-[0.2em] text-bone/40 uppercase"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buyer details -->
+        <form id="pay-form" class="mt-10 space-y-6" novalidate>
+          <div class="grid gap-6 md:grid-cols-2">
+            <label class="block">
+              <span class="mb-2 block font-mono text-[10px] tracking-[0.3em] text-bone/45 uppercase">
+                Full name
+              </span>
+              <input
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                class="w-full border border-bone/25 bg-transparent px-4 py-3 text-bone outline-none focus:border-rust"
+              />
+            </label>
+            <label class="block">
+              <span class="mb-2 block font-mono text-[10px] tracking-[0.3em] text-bone/45 uppercase">
+                Email (receipt goes here)
+              </span>
+              <input
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                class="w-full border border-bone/25 bg-transparent px-4 py-3 text-bone outline-none focus:border-rust"
+              />
+            </label>
+          </div>
+
+          <label class="flex items-start gap-3 text-sm text-bone/70">
+            <input name="terms" type="checkbox" required class="mt-1 accent-rust" />
+            <span>
+              I agree to the
+              <a href="/terms" class="text-rust hover:opacity-70">Terms of Service</a>,
+              <a href="/refunds" class="text-rust hover:opacity-70">Refund Policy</a>, and
+              <a href="/privacy" class="text-rust hover:opacity-70">Privacy Policy</a>.
+            </span>
+          </label>
+
+          <p id="pay-error" class="text-sm text-rust" hidden></p>
+
+          <button
+            id="pay-btn"
+            type="submit"
+            class="w-full bg-rust py-4 font-mono text-[11px] font-bold tracking-[0.25em] text-bone uppercase transition-colors hover:bg-rust-deep disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Pay by card
+          </button>
+
+          <!-- Shown when the payment service isn't live yet -->
+          <div id="not-live" hidden class="border border-bone/20 bg-steel-900 px-6 py-5 text-sm text-bone/70">
+            <span class="font-mono text-[10px] tracking-[0.3em] text-rust uppercase">
+              Card payments coming soon
+            </span>
+            <p class="mt-2">
+              Online card payment is being activated with our bank. To reserve this
+              plan now, email
+              <a href="mailto:coworkingprilep@outlook.com" class="text-rust hover:opacity-70">
+                coworkingprilep@outlook.com
+              </a>
+              and we'll hold it for you.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between gap-4 border-t border-bone/10 pt-6">
+            <p class="font-mono text-[9px] leading-relaxed tracking-[0.2em] text-bone/35 uppercase">
+              Secure payment via ProCredit Bank.<br />
+              Card details are entered on the bank's page, never on ours.
+            </p>
+            <div class="flex shrink-0 items-center gap-3">
+              <img src="/cards/visa.png" alt="Visa" class="h-6 w-auto" />
+              <img src="/cards/mastercard.png" alt="Mastercard" class="h-8 w-auto" />
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline define:vars={{ PAY_ENDPOINT, plans }}>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var slug = params.get("plan");
+      var plan = plans.filter(function (p) { return p.slug === slug && p.purchasable; })[0];
+
+      if (!plan) {
+        document.getElementById("no-plan").hidden = false;
+        return;
+      }
+      document.getElementById("checkout").hidden = false;
+
+      document.getElementById("sum-name").textContent = plan.name;
+      document.getElementById("sum-period").textContent = plan.period;
+      document.getElementById("sum-blurb").textContent = plan.blurb;
+      document.getElementById("sum-mkd").textContent =
+        plan.mkd.toLocaleString("en-US") + " ден";
+      document.getElementById("sum-eur").textContent = "≈ €" + plan.eur;
+
+      var form = document.getElementById("pay-form");
+      var btn = document.getElementById("pay-btn");
+      var err = document.getElementById("pay-error");
+
+      if (!PAY_ENDPOINT) {
+        btn.disabled = true;
+        document.getElementById("not-live").hidden = false;
+      }
+
+      // Device/browser data required by the gateway's Create Order request.
+      function consumerDevice() {
+        return {
+          browser: {
+            javaEnabled: false,
+            jsEnabled: true,
+            acceptHeader: "application/json",
+            colorDepth: String(screen.colorDepth || 24),
+            screenW: String(screen.width),
+            screenH: String(screen.height),
+            tzOffset: String(new Date().getTimezoneOffset()),
+            language: navigator.language || "mk",
+            userAgent: navigator.userAgent,
+          },
+        };
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!PAY_ENDPOINT) return;
+        err.hidden = true;
+
+        var fd = new FormData(form);
+        if (!fd.get("name") || !fd.get("email") || !fd.get("terms")) {
+          err.textContent = "Please fill in your name, email, and accept the terms.";
+          err.hidden = false;
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Redirecting to bank…";
+
+        fetch(PAY_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            plan: plan.slug,
+            amount: plan.mkd,
+            currency: "MKD",
+            name: fd.get("name"),
+            email: fd.get("email"),
+            consumerDevice: consumerDevice(),
+          }),
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            // Server returns the bank's Hosted Payment Page URL.
+            if (data && data.redirectUrl) {
+              location.href = data.redirectUrl;
+              return;
+            }
+            throw new Error((data && data.error) || "Could not start payment");
+          })
+          .catch(function (e2) {
+            btn.disabled = false;
+            btn.textContent = "Pay by card";
+            err.textContent = e2.message + ". Please try again or contact us.";
+            err.hidden = false;
+          });
+      });
+    })();
+  </script>
+</BaseLayout>
