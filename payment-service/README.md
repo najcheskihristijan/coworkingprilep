@@ -54,10 +54,11 @@ Health check: `GET /health`.
 
 ## Going live
 
-- [ ] Bank returns a `cert.pem` matching our `key.pem` (**currently blocked**)
-- [ ] Confirm `PG_TYPE_RID` — email said `1`, doc says `"ORD1"`, portal shows `Order_General`
-- [ ] Terminal `URL` field is `undefined` in the portal; register `https://coworkingprilep.mk`
+- [x] Bank returned new test certificates (14 Aug 2026) — verify cert/key modulus match
+- [x] `PG_TYPE_RID=1` confirmed by bank (one-time payments)
+- [x] Terminal URL registration not required (confirmed by bank)
 - [ ] Confirm MKD amounts in `plans.js` with accounting
 - [ ] Test each card the bank supplied; check orders land in Supabase and receipts send
-- [ ] Swap test cert + `PG_API_URL` for production values, re-verify
+- [ ] Swap test cert + `PG_API_URL` for production (**port 8443**), re-verify
+- [ ] Supply merchant logo to bank at **126x34px**
 - [ ] Confirm MCC (currently `5399`) is right for a coworking space

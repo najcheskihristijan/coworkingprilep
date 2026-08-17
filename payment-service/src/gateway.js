@@ -7,6 +7,7 @@
 
 import https from "node:https";
 import fs from "node:fs";
+import tls from "node:tls";
 import { URL } from "node:url";
 
 let agent = null;
@@ -19,11 +20,14 @@ function mtlsAgent() {
     if (!p) throw new Error(`Missing env ${name}`);
     if (!fs.existsSync(p)) throw new Error(`Certificate file not found: ${p} (${name})`);
   }
+  // The gateway's TLS certificate is issued by a PUBLIC CA (DigiCert), while
+  // ca.pem is ProCredit's private CA that signed OUR CLIENT certificate.
+  // Passing ca.pem alone would REPLACE Node's trust store and make every
+  // request fail server verification, so append it to the public roots instead.
   agent = new https.Agent({
     cert: fs.readFileSync(PG_CERT_PATH),
     key: fs.readFileSync(PG_KEY_PATH),
-    ca: fs.readFileSync(PG_CA_PATH),
-    // The gateway presents a ProCredit-issued cert; verify it against their CA.
+    ca: [...tls.rootCertificates, fs.readFileSync(PG_CA_PATH, "utf8")],
     rejectUnauthorized: true,
     keepAlive: true,
   });
