@@ -7,7 +7,6 @@
 
 import https from "node:https";
 import fs from "node:fs";
-import tls from "node:tls";
 import { URL } from "node:url";
 
 let agent = null;
@@ -15,19 +14,23 @@ let agent = null;
 /** Build (once) the HTTPS agent carrying the client certificate. */
 function mtlsAgent() {
   if (agent) return agent;
-  const { PG_CERT_PATH, PG_KEY_PATH, PG_CA_PATH } = process.env;
-  for (const [name, p] of Object.entries({ PG_CERT_PATH, PG_KEY_PATH, PG_CA_PATH })) {
+  const { PG_CERT_PATH, PG_KEY_PATH } = process.env;
+  for (const [name, p] of Object.entries({ PG_CERT_PATH, PG_KEY_PATH })) {
     if (!p) throw new Error(`Missing env ${name}`);
     if (!fs.existsSync(p)) throw new Error(`Certificate file not found: ${p} (${name})`);
   }
-  // The gateway's TLS certificate is issued by a PUBLIC CA (DigiCert), while
-  // ca.pem is ProCredit's private CA that signed OUR CLIENT certificate.
-  // Passing ca.pem alone would REPLACE Node's trust store and make every
-  // request fail server verification, so append it to the public roots instead.
+  // We send a client certificate (mTLS) and verify the gateway with Node's
+  // default trust store: its TLS certificate is issued by a public CA.
+  //
+  // Do NOT pass ProCredit's ca.pem here. That file is the private CA which
+  // signed OUR CLIENT certificate, not the server's. Supplying it as `ca`
+  // either replaces the trust store (breaking server verification) or, if
+  // merged with the public roots, makes this agent trust a private CA for
+  // every host it talks to. Neither is wanted. Verified against the test
+  // gateway: the handshake and client-cert auth succeed without it.
   agent = new https.Agent({
     cert: fs.readFileSync(PG_CERT_PATH),
     key: fs.readFileSync(PG_KEY_PATH),
-    ca: [...tls.rootCertificates, fs.readFileSync(PG_CA_PATH, "utf8")],
     rejectUnauthorized: true,
     keepAlive: true,
   });
